@@ -1,8 +1,8 @@
 <?php
 
-function getLesVisiteurs($pdo)
+function getLesUtilisateurs($pdo)
 {
-		$req = "select * from visiteur";
+		$req = "select * from utilisateur";
 		$res = $pdo->query($req);
 		$lesLignes = $res->fetchAll();
 		return $lesLignes;
@@ -21,9 +21,9 @@ function getLesIdFraisForfait($pdo)
 		$lesLignes = $res->fetchAll();
 		return $lesLignes;
 }
-function getDernierMois($pdo, $idVisiteur)
+function getDernierMois($pdo, $idUtilisateur)
 {
-		$req = "select max(mois) as dernierMois from fichefrais where idVisiteur = '$idVisiteur'";
+		$req = "select max(mois) as dernierMois from fichefrais where idUtilisateur = '$idUtilisateur'";
 		$res = $pdo->query($req);
 		$laLigne = $res->fetch();
 		return $laLigne['dernierMois'];
@@ -60,14 +60,14 @@ function getMoisPrecedent($mois){
 }
 function creationFichesFrais($pdo)
 {
-	$lesVisiteurs = getLesVisiteurs($pdo);
+	$lesutilisateurs = getLesUtilisateurs($pdo);
 	$moisActuel = getMois(date("d/m/Y"));
 	$moisDebut = "201001";
 	$moisFin = getMoisPrecedent($moisActuel);
-	foreach($lesVisiteurs as $unVisiteur)
+	foreach($lesutilisateurs as $unutilisateur)
 	{
 		$moisCourant = $moisFin;
-		$idVisiteur = $unVisiteur['id'];
+		$idUtilisateur = $unutilisateur['id'];
 		$n = 1;
 		while($moisCourant >= $moisDebut)
 		{
@@ -93,8 +93,8 @@ function creationFichesFrais($pdo)
 			$numMois =substr( $moisModif,4,2);
 			$dateModif = $numAnnee."-".$numMois."-".rand(1,8);
 			$nbJustificatifs = rand(0,12);
-			$req = "insert into fichefrais(idvisiteur,mois,nbJustificatifs,montantValide,dateModif,idEtat) 
-			values ('$idVisiteur','$moisCourant',$nbJustificatifs,0,'$dateModif','$etat');";
+			$req = "insert into fichefrais(idUtilisateur,mois,nbJustificatifs,montantValide,dateModif,idEtat) 
+			values ('$idUtilisateur','$moisCourant',$nbJustificatifs,0,'$dateModif','$etat');";
 			$pdo->exec($req);
 			$moisCourant = getMoisPrecedent($moisCourant);
 			$n++;
@@ -107,7 +107,7 @@ function creationFraisForfait($pdo)
 	$lesIdFraisForfait = getLesIdFraisForfait($pdo);
 	foreach($lesFichesFrais as $uneFicheFrais)
 	{
-		$idVisiteur = $uneFicheFrais['idVisiteur'];
+		$idUtilisateur = $uneFicheFrais['idUtilisateur'];
 		$mois =  $uneFicheFrais['mois'];
 		foreach($lesIdFraisForfait as $unIdFraisForfait)
 		{
@@ -120,8 +120,8 @@ function creationFraisForfait($pdo)
 			{
 				$quantite =rand(2,20);
 			}
-			$req = "insert into lignefraisforfait(idvisiteur,mois,idfraisforfait,quantite)
-			values('$idVisiteur','$mois','$idFraisForfait',$quantite);";
+			$req = "insert into lignefraisforfait(idUtilisateur,mois,idfraisforfait,quantite)
+			values('$idUtilisateur','$mois','$idFraisForfait',$quantite);";
 			$pdo->exec($req);	
 		}
 	}
@@ -177,23 +177,23 @@ function getDesFraisHorsForfait()
 		);
 	return $tab;
 }
-function updateMdpVisiteur($pdo)
+function updateMdputilisateur($pdo)
 {
-	$req = "select * from visiteur";
+	$req = "select * from utilisateur";
 		$res = $pdo->query($req);
 		$lesLignes = $res->fetchAll();
 		$lettres ="azertyuiopqsdfghjkmwxcvbn123456789";
-		foreach($lesLignes as $unVisiteur)
+		foreach($lesLignes as $unutilisateur)
 		{
 			$mdp = "";
-			$id = $unVisiteur['id'];
+			$id = $unutilisateur['id'];
 			for($i =1;$i<=5;$i++)
 			{
 				$uneLettrehasard = substr( $lettres,rand(33,1),1);
 				$mdp = $mdp.$uneLettrehasard;
 			}
 			
-			$req = "update visiteur set mdp ='$mdp' where visiteur.id ='$id' ";
+			$req = "update utilisateur set mdp ='$mdp' where utilisateur.id ='$id' ";
 			$pdo->exec($req);
 		}
 
@@ -206,7 +206,7 @@ function creationFraisHorsForfait($pdo)
 	
 	foreach($lesFichesFrais as $uneFicheFrais)
 	{
-		$idVisiteur = $uneFicheFrais['idVisiteur'];
+		$idUtilisateur = $uneFicheFrais['idUtilisateur'];
 		$mois =  $uneFicheFrais['mois'];
 		$nbFrais = rand(0,5);
 		for($i=0;$i<=$nbFrais;$i++)
@@ -225,8 +225,8 @@ function creationFraisHorsForfait($pdo)
 				$hasardJour="0".$hasardJour;
 			}
 			$hasardMois = $numAnnee."-".$numMois."-".$hasardJour;
-			$req = "insert into lignefraishorsforfait(idVisiteur,mois,libelle,date,montant)
-			values('$idVisiteur','$mois','$lib','$hasardMois',$hasardMontant);";
+			$req = "insert into lignefraishorsforfait(idUtilisateur,mois,libelle,date,montant)
+			values('$idUtilisateur','$mois','$lib','$hasardMois',$hasardMontant);";
 			$pdo->exec($req);
 		}
 	}
@@ -244,16 +244,16 @@ function majFicheFrais($pdo)
 	$lesFichesFrais= getLesFichesFrais($pdo);
 	foreach($lesFichesFrais as $uneFicheFrais)
 	{
-		$idVisiteur = $uneFicheFrais['idVisiteur'];
+		$idUtilisateur = $uneFicheFrais['idUtilisateur'];
 		$mois =  $uneFicheFrais['mois'];
-		$dernierMois = getDernierMois($pdo, $idVisiteur);
-		$req = "select sum(montant) as cumul from ligneFraisHorsForfait where ligneFraisHorsForfait.idVisiteur = '$idVisiteur' 
+		$dernierMois = getDernierMois($pdo, $idUtilisateur);
+		$req = "select sum(montant) as cumul from ligneFraisHorsForfait where ligneFraisHorsForfait.idUtilisateur = '$idUtilisateur' 
 				and ligneFraisHorsForfait.mois = '$mois' ";
 		$res = $pdo->query($req);
 		$ligne = $res->fetch();
 		$cumulMontantHorsForfait = $ligne['cumul'];
 		$req = "select sum(ligneFraisForfait.quantite * fraisForfait.montant) as cumul from ligneFraisForfait, FraisForfait where
-		ligneFraisForfait.idFraisForfait = fraisForfait.id   and   ligneFraisForfait.idVisiteur = '$idVisiteur' 
+		ligneFraisForfait.idFraisForfait = fraisForfait.id   and   ligneFraisForfait.idUtilisateur = '$idUtilisateur' 
 				and ligneFraisForfait.mois = '$mois' ";
 		$res = $pdo->query($req);
 		$ligne = $res->fetch();
@@ -265,7 +265,7 @@ function majFicheFrais($pdo)
 		else
 			$montantValide = $montantEngage*rand(80,100)/100;
 		$req = "update fichefrais set montantValide =$montantValide where
-		idVisiteur = '$idVisiteur' and mois='$mois'";
+		idUtilisateur = '$idUtilisateur' and mois='$mois'";
 		$pdo->exec($req);
 		
 	}
