@@ -160,5 +160,6 @@ Montant validé : <?php echo $lesInfosFicheFrais['montantValide']; ?>
             <p><input id="ok" type="submit" value="Valider cette fiche" size="40" /></p> 
         </div>
     <?php } ?>  
-</form>        
+</form>
+
 </div>

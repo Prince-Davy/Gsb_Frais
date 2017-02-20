@@ -263,4 +263,23 @@ function prochainMois($mois) {
     }
     return $numAnnee . "" . $numMois;
 }
+
+/** 
+ * Fournit le libellé en français correspondant à un numéro de mois.                     
+ *
+ * Fournit le libellé français du mois de numéro $unNoMois.
+ * Retourne une chaîne vide si le numéro n'est pas compris dans l'intervalle [1,12].
+ * @param int numéro de mois
+ * @return string identifiant de connexion
+ */
+function obtenirLibelleMois($unNoMois) {
+    $tabLibelles = array(1=>"Janvier", 
+                            "Février", "Mars", "Avril", "Mai", "Juin", "Juillet",
+                            "Août", "Septembre", "Octobre", "Novembre", "Décembre");
+    $libelle="";
+    if ( $unNoMois >=1 && $unNoMois <= 12 ) {
+        $libelle = $tabLibelles[$unNoMois];
+    }
+    return $libelle;
+}
 ?>

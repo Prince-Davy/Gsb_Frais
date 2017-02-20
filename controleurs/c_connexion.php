@@ -12,7 +12,11 @@ switch ($action) {
     case 'valideConnexion': {
             $login = $_REQUEST['login'];
             $mdp = $_REQUEST['mdp'];
-            $utilisateur = $pdo->getInfosUtilisateur($login, $mdp);
+            
+            //La variable password contient le mdp Hashé
+            $password = $pdo->encrypt($login,$mdp);
+            
+            $utilisateur = $pdo->getInfosUtilisateur($login, $password);
             if (!is_array($utilisateur)) {
                 ajouterErreur("Login ou mot de passe incorrect");
                 include("vues/v_erreurs.php");

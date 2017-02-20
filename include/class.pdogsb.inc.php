@@ -15,6 +15,7 @@
  * @version    1.0
  * @link       http://www.php.net/manual/fr/book.pdo.php
  */
+    
 class PdoGsb {
 
     private static $serveur = 'mysql:host=localhost';
@@ -23,6 +24,8 @@ class PdoGsb {
     private static $mdp = 'root';
     private static $monPdo;
     private static $monPdoGsb = null;
+    
+    
 
     /**
      * Constructeur privé, crée l'instance de PDO qui sera sollicitée
@@ -50,15 +53,33 @@ class PdoGsb {
         }
         return PdoGsb::$monPdoGsb;
     }
+    
+    /**
+     * Hashe le mot de passe dans la BDD lors du login
+     * retourne un champ crypté
+     * 
+     * @param type $login
+     * @param type $mdp
+     * @return type $crypt
+     */
+    public static function encrypt($login, $mdp) {
+        $crypt= password_hash($mdp,PASSWORD_DEFAULT);
+        $req="UPDATE `utilisateur` SET `mdp` = '$crypt'
+            WHERE `utilisateur`.`login` = '$login'";
+        PdoGsb::$monPdo->exec($req);
+         return $crypt;
+    }
 
     /**
      * Retourne les informations d'un utilisateur
-
+ 
      * @param $login 
      * @param $mdp
      * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
      */
+
     public function getInfosUtilisateur($login, $mdp) {
+
         $req = "select utilisateur.id as id, utilisateur.nom as nom, utilisateur.prenom as prenom, utilisateur.typeConnexion as typeConnexion , typeConnexion.compte as compte from utilisateur 
                 INNER JOIN typeConnexion ON typeConnexion.id = utilisateur.typeConnexion
 		where utilisateur.login='$login' and utilisateur.mdp='$mdp'";
