@@ -30,12 +30,14 @@ switch ($action) {
 
                 connecter($id, $nom, $prenom, $typeConnexion, $compte);
 
-                //Affichage du sommaire en fonction du compte
+                //Affichage du sommaire en fonction du compte Utilisateur / Comptable / Administrateur
+                
                 if ($typeConnexion == 2) {
                     include("vues/v_sommaireComptable.php");
-                } else {
-                    include("vues/v_sommaireUtilisateur.php");
-                }
+                } else if ($typeConnexion == 3){
+                    include("vues/v_sommaireAdministrateur.php");
+                }else
+                   include("vues/v_sommaireUtilisateur.php");
             }
             break;
         }

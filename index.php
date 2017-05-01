@@ -27,6 +27,10 @@ switch($uc){
 		include("controleurs/c_suiviFrais.php");
                 break; 
 	}
+        case 'listeUtilisateurs' :{
+		include("controleurs/c_listeUtilisateurs.php");
+                break; 
+	}
 }
 include("vues/v_pied.php") ;
 ?>

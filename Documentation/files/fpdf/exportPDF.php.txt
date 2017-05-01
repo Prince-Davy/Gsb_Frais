@@ -1,0 +1,222 @@
+<?php
+
+require("_gestionSession.lib.php");
+
+// démarrage ou reprise de la session
+initSession();
+
+// page inaccessible si utilisateur non connecté
+if (!estUtilisateurConnecte()) {
+   header("Location: ../cSeConnecter.php");
+}
+require("_utilitairesEtGestionErreurs.lib.php");
+require('fpdf.php');
+
+class PDF extends FPDF {
+
+   // ___________Logo____________
+   function Header() {
+      $this->Image('../images/logo.jpg', 90, 6, 30);
+   }
+
+   // ___________Pied de page___________
+   function Footer() {
+      // Positionnement à 1,5 cm du bas
+      $this->SetY(-15);
+      $this->SetFont('Times', 'I', 8);
+      // Numérotation des pages
+      $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+   }
+
+   // ___________ En-tête Fiche Frais (Titre, Visiteur et Mois)___________
+   function enteteFicheFrais($bdd, $choixMois, $choixVisiteur) {
+      // Couleur du texte: Bleu et police: Times gras "B" de taille 15
+      $this->SetTextColor(31, 73, 125);
+      $this->SetFont('Times', 'B', 15);
+      // Saut de ligne "Ln" + Décalage à droite de la cellule "Cell(10)" + Texte centré "C" + Saut de ligne
+      $this->Ln(30);
+      $this->Cell(10);
+      $this->Cell(170, 10, utf8_decode('REMBOURSEMENT DE FRAIS ENGAGÉS'), 0, 0, 'C');
+      // Requete pour récupérer le nom prénom du visiteur dans la table Utilisateur
+      // et les valeurs de la fiche de frais en joignant la table FicheFrais 
+      $idJeuFicheDeFrais = $bdd->query('select nom, prenom from Utilisateur join FicheFrais on id = idUtilisateur where id="' . $choixVisiteur . '" and mois="' . $choixMois . '";');
+      $lgFicheFrais = $idJeuFicheDeFrais->fetch(); // $lgFicheFrais = $mysql_fetch_array($idJeuFicheDeFrais)
+      $idJeuFicheDeFrais->closeCursor(); // ferme le curseur precedent
+      $this->Ln(15);
+      $this->Cell(10);
+      $this->SetTextColor(0, 0, 0);
+      $this->SetFont('Times', '', 12);
+      // Infos visiteur id + nom et prenom
+      $this->Cell(50, 7, "Visiteur", 0);
+      $this->Cell(40, 7, $choixVisiteur, 0);
+      $this->Cell(80, 7, utf8_decode($lgFicheFrais['prenom']) . " " . strtoupper(utf8_decode($lgFicheFrais['nom'])), 0);
+      $this->Ln(10);
+      $this->Cell(10);
+      // Infos Mois 
+      $this->Cell(50, 7, "Mois", 0);
+      $mois = intval(substr($choixMois, 4, 2));
+      $annee = intval(substr($choixMois, 0, 4));
+      // la fonction obtenirLibelleMois() dans "include/_utilitairesEtGestionErreurs.lib.php"
+      $this->Cell(40, 7, obtenirLibelleMois($mois) . ' ' . $annee, 0);
+   }
+
+   // ____________Tableau Frais Forfait___________
+   function tabFraisForfaits($bdd, $choixMois, $choixVisiteur) {
+      // Entêtes de colonnes
+      $this->Ln(15);
+      $this->Cell(10);
+      $this->SetTextColor(31, 73, 125);
+      $this->SetFont('Times', 'BI', 12); // "BI" gras et italique
+      $this->SetFillColor(255, 255, 255); // SetFillColor: définit la couleur de remplissage
+      $this->Cell(50, 7, 'Frais forfaitaires', 'LTB', 0, 'C', true); //"LTB" bords tracés sur le coté gauche, haut, bas
+      $this->Cell(40, 7, utf8_decode('Quantité'), 'TB', 0, 'C', true); //"0" indique que le texte suivant doit etre à droite après celui ci
+      $this->Cell(40, 7, 'Montant unitaire', 'TB', 0, 'C', true); //"true": fond coloré; "false": fond transparent
+      $this->Cell(40, 7, 'Total', 'TRB', 0, 'C', true); //"TRB" bords tracés sur le coté haut, droite, bas 
+      // Données 
+      $this->Ln();
+      $this->SetTextColor(0, 0, 0);
+      $this->SetFont('Times', '', 12);
+      // requete pour récupérer les valeurs du libelle, quantite de la table LigneFraisForfait
+      // ainsi que le montant, le total (quantite*montant) grace à la jointure avec la table FraisForfait
+      $idJeuFraisForfait = $bdd->query("select libelle, quantite, montant, (quantite*montant) as total from LigneFraisForfait inner join FraisForfait on FraisForfait.id = LigneFraisForfait.idFraisForfait where idUtilisateur='" . $choixVisiteur . "' and mois='" . $choixMois . "'");
+      while ($lgFraisForfait = $idJeuFraisForfait->fetch()) {
+         $this->Cell(10);
+         $this->Cell(50, 7, $lgFraisForfait['libelle'], 1, 0, 'L', true); //"1" pour tracé un cadre
+         $this->Cell(40, 7, $lgFraisForfait['quantite'], 1, 0, 'R', true);
+         $this->Cell(40, 7, $lgFraisForfait['montant'], 1, 0, 'R', true);
+         $this->Cell(40, 7, $lgFraisForfait['total'], 1, 0, 'R', true);
+         $this->Ln();
+      }
+      $idJeuFraisForfait->closeCursor();
+   }
+
+   // ____________Tableau Frais Hors Forfait___________
+   function tabFraisHorsForfaits($bdd, $choixMois, $choixVisiteur) {
+      $this->Ln(5);
+      $this->Cell(10);
+      $this->SetTextColor(31, 73, 125);
+      $this->SetFont('Times', 'BI', 12);
+      $this->Cell(170, 10, 'Autres frais', 0, 0, 'C');
+      // Entêtes de colonnes
+      $this->Ln(10);
+      $this->Cell(10);
+      $this->SetTextColor(31, 73, 125);
+      $this->SetFont('Times', 'BI', 12);
+      $this->SetFillColor(255, 255, 255);
+      $this->Cell(50, 7, 'Date', 'LTB', 0, 'C', true);
+      $this->Cell(80, 7, utf8_decode('Libellé'), 'TB', 0, 'C', true);
+      $this->Cell(40, 7, 'Montant', 'TRB', 0, 'C', true);
+      // Données
+      $this->Ln();
+      $this->SetTextColor(0, 0, 0);
+      $this->SetFont('Times', '', 12);
+      // requete pour récupérer les valeurs de id, date, libelle, montant de la table LigneFraisHorsForfait
+      $idJeuFraisHorsForfait = $bdd->query("select id, date, libelle, montant from LigneFraisHorsForfait where idUtilisateur='" . $choixVisiteur . "' and mois='" . $choixMois . "'");
+      while ($lgFraisHorsForfait = $idJeuFraisHorsForfait->fetch()) {
+         $this->Cell(10);
+         // la fonction "convertirDateAnglaisVersFrancais()" dans "include/_utilitairesEtGestionErreurs.lib.php"
+         // permet de modifier une date de type Anglais(annee/mois/jour) en type Français(jour/mois/annee)
+         $this->Cell(50, 7, convertirDateAnglaisVersFrancais($lgFraisHorsForfait['date']), 1, 0, 'L', true);
+         $this->Cell(80, 7, $lgFraisHorsForfait['libelle'], 1, 0, 'L', true);
+         $this->Cell(40, 7, $lgFraisHorsForfait['montant'], 1, 0, 'R', true);
+         $this->Ln();
+      }
+      $idJeuFraisHorsForfait->closeCursor();
+   }
+
+   // ___________Afficher Total Fiche Frais + Date____________
+   function afficheTotal($bdd, $choixMois, $choixVisiteur) {
+      $this->Ln();
+      $this->Cell(100);
+      // la requete récupère le montant total de la fiche de frais dans la table FicheFrais
+      $idJeuFicheFrais = $bdd->query("select montantValide from FicheFrais where idUtilisateur='" . $choixVisiteur . "' and mois='" . $choixMois . "'");
+      $lgFicheFrais = $idJeuFicheFrais->fetch();
+      $idJeuFicheFrais->closeCursor();
+      $mois = intval(substr($choixMois, 4, 2));
+      $annee = intval(substr($choixMois, 0, 4));
+      $this->Cell(40, 7, 'TOTAL ' . $mois . '/' . $annee, 1, 0, 'L', true);
+      $this->Cell(40, 7, $lgFicheFrais['montantValide'], 1, 0, 'R', true);
+   }
+
+   // ____________Afficher Signature + Date____________
+   function afficheSignature($bdd, $choixMois, $choixVisiteur) {
+      $this->Ln(20);
+      $this->Cell(100);
+      $idJeuFicheFrais = $bdd->query("select dateModif from FicheFrais where idUtilisateur='" . $choixVisiteur . "' and mois='" . $choixMois . "'");
+      $lgFicheFrais = $idJeuFicheFrais->fetch();
+      $idJeuFicheFrais->closeCursor();
+      $jour = intval(substr($lgFicheFrais['dateModif'], 8, 2));
+      $mois = intval(substr($lgFicheFrais['dateModif'], 5, 2));
+      $annee = intval(substr($lgFicheFrais['dateModif'], 0, 4));
+      $this->Cell(80, 7, utf8_decode('Fait à LYON, le ' . $jour . ' ' . obtenirLibelleMois($mois) . ' ' . $annee), 0, 0, 'L', true);
+      $this->Ln(10);
+      $this->Cell(100);
+      $this->Cell(80, 7, 'Vu l\'agent comptable', 0, 0, 'L', true);
+      $this->Ln(10);
+      $this->Cell(100);
+      $this->Image('../images/signatureComptable.png', null, null, 70);
+   }
+
+   // ______________Affiche Les differents éléments de la fiche de frais___________
+   function afficheFicheFrais($choixMois, $choixVisiteur) {
+      $this->AliasNbPages(); //définit un alias pour le nombre de pages "Page ../.."
+      $this->AddPage(); //ajoute une nouvelle page "Page 1/1"
+      $this->SetFont('Times', '', 12);
+      // Connexion à la BDD en PDO(extension PHP depuis 5.1 équivalent à mysql_connect)
+      try {
+         $bdd = new PDO('mysql:host=mysql5-5.start;dbname=maxwarebase', 'maxwarebase', 'g33k1337');
+      } catch (Exception $e) {
+         die('Erreur : ' . $e->getMessage());
+      }
+
+      // Affichage de l'entête de la fiche de frais
+      $this->enteteFicheFrais($bdd, $choixMois, $choixVisiteur);
+      // Affichage des frais forfaitisés
+      $this->tabFraisForfaits($bdd, $choixMois, $choixVisiteur);
+      // Affichage des frais hors forfaits
+      $this->tabFraisHorsForfaits($bdd, $choixMois, $choixVisiteur);
+      // Affichage du total
+      $this->afficheTotal($bdd, $choixMois, $choixVisiteur);
+      // Affichage de la date et de la signature du document
+      $this->afficheSignature($bdd, $choixMois, $choixVisiteur);
+   }
+
+}
+
+//________Récupération des valeurs des formulaires de cValideFichesFrais.php________ 
+$choixMois = lireDonneePost("lstMois", "");
+$choixVisiteur = lireDonneePost("lstVisiteur", "");
+
+//chemin du fichier nommé avec le mois et le visiteur
+$fichier = '../pdf/' . $choixMois . $choixVisiteur . '.pdf';
+
+// Si l'adresse de cet page à été tapé manuellement on renvoie la personne à la page d'accueil
+if (empty($choixMois) or empty($choixVisiteur)) {
+   header("Location: ../cAccueil.php");
+}
+//__________Création du fichier PDF___________
+// Si le fichier PDF n'existe pas encore, on le génère
+if (!file_exists($fichier)) {
+   // Instanciation de la classe dérivée
+   $pdf = new PDF();
+   $pdf->afficheFicheFrais($choixMois, $choixVisiteur);
+   $pdf->Output($fichier); //le pdf est mis dans le fichier "pdf" du serveur
+}
+// Connexion à la BDD en PDO
+try {
+   $bdd = new PDO('mysql:host=mysql5-5.start;dbname=maxwarebase', 'maxwarebase', 'g33k1337');
+} catch (Exception $e) {
+   die('Erreur : ' . $e->getMessage());
+}
+//_________Téléchargement du PDF____________
+$idJeuFicheFrais = $bdd->query('select nom, prenom from Utilisateur join FicheFrais on id = idUtilisateur where id="' . $choixVisiteur . '" and mois="' . $choixMois . '";');
+$lgFicheFrais = $idJeuFicheFrais->fetch();
+$idJeuFicheFrais->closeCursor();
+$mois = intval(substr($choixMois, 4, 2));
+$annee = intval(substr($choixMois, 0, 4));
+header('Content-Type: application/x-download');
+header('Content-Disposition: inline; filename="Fiche_de_frais_' . utf8_decode($lgFicheFrais['prenom']) . '_' . strtoupper(utf8_decode($lgFicheFrais['nom'])) . '_' . obtenirLibelleMois($mois) . '_' . $annee . '.pdf');
+header('Cache-Control: private, max-age=0, must-revalidate');
+header('Pragma: public');
+readfile($fichier);
+?>

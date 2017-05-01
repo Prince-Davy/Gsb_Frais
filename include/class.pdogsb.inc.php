@@ -184,12 +184,37 @@ class PdoGsb {
         return $lesLignes;
     }
     
-    /**
-     * Retourne le nom et prenom des utilisateurs
+     /**
+     * Retourne le nom , prenom des utilisateurs
      * @return un tableau associatif
     */
     public function getLesUtilisateurs() {
         $req = "select id,nom,prenom from utilisateur where typeConnexion='1' order by nom asc";
+        $res = PdoGsb::$monPdo->query($req);
+        $lignes = $res->fetchAll();
+        return $lignes;
+    }
+    
+    /**
+     * Retourne un nouvel utilisateur
+     * @return un tableau associatif
+    */
+    public function creationUtilisateurs($id,$nom,$prenom,$login,$mdp,$adresse,$cp,$ville,$dateEmbauche,$typeConnexion) {
+        $req = "INSERT INTO utilisateur(`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `typeConnexion`)"
+                . " VALUES ($id,$nom,$prenom,$login,$mdp,$adresse,$cp,$ville,$dateEmbauche,$typeConnexion)";
+        $res = PdoGsb::$monPdo->query($req);
+        $lignes = $res->fetchAll();
+        return $lignes;
+    }
+    
+    /**
+     * Retourne les utilisateurs enregistrés dans la base 
+     * @return un tableau associatif
+    */
+    public function getLesInfosUtilisateurs(){
+        $req = "select utilisateur.id as id, utilisateur.login as login , utilisateur.nom as nom, utilisateur.prenom as prenom, utilisateur.adresse as adresse ,"
+                . " utilisateur.cp as cp, utilisateur.dateEmbauche, typeConnexion.compte as compte from utilisateur "
+                . "INNER JOIN typeConnexion ON typeConnexion.id = utilisateur.typeConnexion order by nom ASC";
         $res = PdoGsb::$monPdo->query($req);
         $lignes = $res->fetchAll();
         return $lignes;

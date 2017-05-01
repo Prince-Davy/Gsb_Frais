@@ -54,7 +54,7 @@
         ?>        
     </table>
     
-    <form method="post" action="http://localhost/gsbMVC/pdf/pdf.php">         	
+    <form method="post" action="http://localhost/GSB_FRAIS-master/fpdf/editPdf.php">         	
         <p>				
             <input type="submit" value="Telecharger PDF" />
         </p>
