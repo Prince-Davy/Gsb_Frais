@@ -1,0 +1,55 @@
+<?php
+
+include('fpdf.php');
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+//Connexion à la base de données Gsb_Frais
+try {
+   $connexion = new PDO("mysql:host=localhost;dbname=gsb_frais", "root", "root");
+   $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+   // --- Si on utilise ceci il faut utiliser utf8_decode 
+   // --- pour afficher plus bas les caractères accentues
+   $connexion->exec("SET NAMES 'UTF8'");
+
+
+   //Requete Sql
+   $query = "SELECT * from utilisateur";
+   $result = $connexion->prepare($query);
+   $result->execute();
+
+
+   //traitement
+   while ($données = $result->fetch()) {
+
+      echo "id : " . $données['id'] . ' ';
+      ;
+      echo "nom : " . $données['nom'] . ' ';
+      ;
+      echo "prenom : " . $données['prenom'] . ' ';
+      ;
+      echo "login : " . $données['login'] . ' ';
+      ;
+      echo "</br>";
+   }
+
+
+//Creation du PDF
+   $pdf = new FPDF();
+   $pdf->AddPage();
+   $pdf->SetFont('Courier', '', 12);
+   $pdf->SetDrawColor(0, 0, 0);
+   $pdf->SetFillColor(199, 199, 199);
+   $pdf->SetTextColor(0, 0, 0);
+
+   $pdf->Output();
+}catch (PDOException $e) {
+   echo "Echec de l'exécution : " . $e->getMessage();
+}
+
+?>
