@@ -53,7 +53,7 @@
         }
         ?>        
     </table>
-    <form method="post" action="http://localhost/gsbMVC/pdf/exportPDF.php">         	
+    <form method="post" action="http://localhost/gsbMVC/fpdf/editPdf.php">         	
         <p>				
             <input type="submit" value="Telecharger PDF" />
         </p>

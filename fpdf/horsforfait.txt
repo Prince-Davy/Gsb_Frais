@@ -1,0 +1,3 @@
+Date;;80.00;
+Libellé;; 29.00;
+Montant
