@@ -16,7 +16,7 @@ class PDF extends FPDF {
 
    // ___________Logo____________
    function Header() {
-      $this->Image('../images/logo.jpg', 90, 6, 30);
+      $this->Image('../images/LOGO-GSB.png', 90, 6, 30);
    }
 
    // ___________Pied de page___________
