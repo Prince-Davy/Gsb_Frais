@@ -8,7 +8,7 @@
                 <input id ="modifListeUtilisateur" type="hidden" name="modifListeUtilisateur" value="<?php echo "Non" ; ?>">
                 <label for="lstUtilisateur">Utilisateur :</label>
 
-                <select id ="lstutilisateur" name="lstutilisateur" onchange=" changeutilisateurOuValidation();
+                <select id ="lstutilisateur" name="lstutilisateur" onchange="changeutilisateurOuValidation();
                         this.form.submit()">
 
                     <?php

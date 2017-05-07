@@ -4,14 +4,12 @@ session_start();
 require('fpdf.php');
 require('../include/fct.inc.php');
 
-
-
 class PDF extends FPDF {
 
    //Entete de Page
    function Header() {
       // ___________Logo____________
-      $this->Image('LOGO-GSB.png', 90, 6, 30);
+      $this->Image('../images/LOGO-GSB.png', 90, 6, 30);
       // Police Arial gras 15
       $this->SetFont('Arial', 'B', 15);
       // Décalage à droite
@@ -36,12 +34,27 @@ class PDF extends FPDF {
       $this->SetTextColor(31, 73, 125);
       $this->SetFont('Times', 'B', 15);
 
+      // requete pour récupérer les valeurs du libelle, quantite de la table LigneFraisForfait
+      // ainsi que le montant, le total (quantite*montant) grace à la jointure avec la table FraisForfait
+      //Connexion à la base de données Gsb_Frais
+      $connexion = new PDO("mysql:host=localhost;dbname=gsb_frais", "root", "root");
+      $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      // --- Si on utilise ceci il faut utiliser utf8_decode 
+      // --- pour afficher plus bas les caractères accentues
+      $connexion->exec("SET NAMES 'UTF8'");
+
+      //Requete Sql
+      $query = "select libelle, quantite, montant, (quantite*montant) as total from LigneFraisForfait"
+              . " inner join FraisForfait on FraisForfait.id = LigneFraisForfait.idFraisForfait"
+              . " where idUtilisateur='" . $_SESSION['idUtilisateur'] . "'  and mois='" . 201702 . "' ";
+      $result = $connexion->prepare($query);
+      $result->execute();
+
+
       // Saut de ligne "Ln" + Décalage à droite de la cellule "Cell(10)" + Texte centré "C" + Saut de ligne
       $this->Ln(30);
       $this->Cell(10);
       $this->Cell(170, 10, utf8_decode('REMBOURSEMENT DE FRAIS ENGAGÉS'), 0, 0, 'C');
-
-
       $this->Ln(15);
       $this->Cell(10);
       $this->SetTextColor(0, 0, 0);
@@ -49,8 +62,8 @@ class PDF extends FPDF {
 
       // Infos visiteur id + nom et prenom
       $this->Cell(50, 7, "Visiteur", 0);
-      $this->Cell(40, 7, utf8_decode($_SESSION['idUtilisateur']), 0);
-      $this->Cell(80, 7, utf8_decode($_SESSION['prenom']) . "    " . strtoupper($_SESSION['nom']), 0);
+      $this->Cell(40, 7, $_SESSION['idUtilisateur'], 0);
+      $this->Cell(80, 7, strtoupper($_SESSION['prenom']) . "          " . strtoupper($_SESSION['nom']), 0);
       $this->Ln(10);
       $this->Cell(10);
       // Infos Mois 
@@ -89,7 +102,6 @@ class PDF extends FPDF {
               . " where idUtilisateur='" . $_SESSION['idUtilisateur'] . "'  and mois='" . 201702 . "' ";
       $result = $connexion->prepare($query);
       $result->execute();
-
 
       while ($données = $result->fetch()) {
          $this->Cell(10);
@@ -135,7 +147,7 @@ class PDF extends FPDF {
       $query = "select id, date, libelle, montant from LigneFraisHorsForfait where idUtilisateur='" . $_SESSION['idUtilisateur'] . "'  and mois='" . 201702 . "'";
       $result = $connexion->prepare($query);
       $result->execute();
-      
+
       while ($données = $result->fetch()) {
          $this->Cell(10);
          // la fonction "convertirDateAnglaisVersFrancais()" dans "include/_utilitairesEtGestionErreurs.lib.php"
@@ -155,32 +167,39 @@ class PDF extends FPDF {
       $this->Cell(100);
 
       // la requete récupère le montant total de la fiche de frais dans la table FicheFrais
+      // requete pour récupérer les valeurs de id, date, libelle, montant de la table LigneFraisHorsForfait
+      $connexion = new PDO("mysql:host=localhost;dbname=gsb_frais", "root", "root");
+      $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      // --- Si on utilise ceci il faut utiliser utf8_decode 
+      // --- pour afficher plus bas les caractères accentues
+      $connexion->exec("SET NAMES 'UTF8'");
 
+      //Requete Sql
+      $query = "select montantValide from FicheFrais where idUtilisateur='" . $_SESSION['idUtilisateur'] . "'  and mois='" . 201702 . "'";
+      $result = $connexion->prepare($query);
+      $result->execute();
+      $données = $result->fetch();
+
+      //$mois = intval(substr($choixMois, 4, 2));
+      //$annee = intval(substr($choixMois, 0, 4));
       $this->Cell(40, 7, 'TOTAL ', 1, 0, 'L', true);
       $this->Cell(40, 7, 1, 0, 'R', true);
    }
-   
+
    // ____________Afficher Signature + Date____________
-    function afficheSignature() {
-        $this->Ln(20);
-        $this->Cell(100);
-        /*
-        $idJeuFicheFrais = $bdd->query("select dateModif from FicheFrais where idUtilisateur='" . $choixVisiteur . "' and mois='" . $choixMois . "'");
-        $lgFicheFrais = $idJeuFicheFrais->fetch();
-        $idJeuFicheFrais->closeCursor();
-        $jour = intval(substr($lgFicheFrais['dateModif'], 8, 2));
-        $mois = intval(substr($lgFicheFrais['dateModif'], 5, 2));
-        $annee = intval(substr($lgFicheFrais['dateModif'], 0, 4));*/
-        
-        //$this->Cell(80, 7, utf8_decode('Fait à LYON, le ' . '$jour '. ' ' . obtenirLibelleMois($mois) . ' ' . '$annee)'', 0, 0, 'L', true);
-        $this->Ln(10);
-        $this->Cell(100);
-        $this->Cell(50, 7,'Vu par l\'agent comptable', 0, 0, 'L', true);
-        $this->Cell(0, 7,utf8_decode($_SESSION['nom'] = "N'kakou Prince-Davy"), 0, 0, 'L', true);
-        $this->Ln(10);
-        $this->Cell(100);
-        $this->Image('../images/signatureComptable.png', null, null, 70);
-    }
+   function afficheSignature() {
+      $this->Ln(20);
+      $this->Cell(100);
+
+      //$this->Cell(80, 7, utf8_decode('Fait à LYON, le ' . '$jour '. ' ' . obtenirLibelleMois($mois) . ' ' . '$annee)'', 0, 0, 'L', true);
+      $this->Ln(10);
+      $this->Cell(100);
+      $this->Cell(50, 7, 'Vu par l\'agent comptable', 0, 0, 'L', true);
+      $this->Cell(0, 7, "Prince-Davy N'kakou", 0, 0, 'L', true);
+      $this->Ln(10);
+      $this->Cell(100);
+      $this->Image('../images/signatureComptable.png', null, null, 70);
+   }
 
 }
 
@@ -194,8 +213,6 @@ $pdf->tabFraisHorsForfaits();
 $pdf->afficheTotal();
 $pdf->afficheSignature();
 $pdf->SetFont('Times', '', 12);
-
-
 
 $pdf->Output();
 ?>
