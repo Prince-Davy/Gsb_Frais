@@ -338,7 +338,7 @@ function lireDonneePost($nomDonnee, $valDefaut = "") {
  * @param $cp
  * @param $ville
  */
-function valideInfosUtilisateur($id, $login, $nom, $prenom,$mdp, $adresse, $ville, $typeConnexion) {
+function valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeConnexion) {
 
    if ($id == "") {
       ajouterErreur("Le champ id ne peut pas être vide");
@@ -367,11 +367,27 @@ function valideInfosUtilisateur($id, $login, $nom, $prenom,$mdp, $adresse, $vill
       ajouterErreur("Le champ ville ne peut pas être vide");
    }
 
+   if (!is_numeric($cp)) {
+      ajouterErreur("Veuillez saisir des valeurs numeriques");
+   } else {
+      if ($cp == "") {
+         ajouterErreur("Le champ ville ne peut pas être vide");
+      }
+
+
+      if ($dateEmbauche == "") {
+         ajouterErreur("Le champ date ne doit pas être vide");
+      } else {
+         if (!estDatevalide($dateEmbauche)) {
+            ajouterErreur("Date invalide");
+         } 
+      }
+   }
+
    if ($typeConnexion == "") {
       ajouterErreur("Le champ typeConnexion ne peut pas être vide");
    }
 }
-
 
 /**
  * Mise à jour des données d'un utilisateur
@@ -381,23 +397,23 @@ function valideInfosUtilisateur($id, $login, $nom, $prenom,$mdp, $adresse, $vill
  * @param type $cp
  * @param type $ville
  */
-function valideModifUtilisateur($nom, $prenom, $adresse, $cp, $ville){
-	if($nom==""){
-            ajouterErreur("Le champ nom ne peut pas être vide");
-	}
+function valideModifUtilisateur($nom, $prenom, $adresse, $cp, $ville) {
+   if ($nom == "") {
+      ajouterErreur("Le champ nom ne peut pas être vide");
+   }
 
-        if($prenom==""){
-            ajouterErreur("Le champ prenom ne peut pas être vide");
-	}
-        if($adresse==""){
-            ajouterErreur("Le champ adresse ne peut pas être vide");
-	}
+   if ($prenom == "") {
+      ajouterErreur("Le champ prenom ne peut pas être vide");
+   }
+   if ($adresse == "") {
+      ajouterErreur("Le champ adresse ne peut pas être vide");
+   }
 
-        if($cp==""){
-            ajouterErreur("Le champ code postale ne peut pas être vide");
-	}
-        if($ville==""){
-            ajouterErreur("Le champ ville ne peut pas être vide");
-	}
+   if ($cp == "") {
+      ajouterErreur("Le champ code postale ne peut pas être vide");
+   }
+   if ($ville == "") {
+      ajouterErreur("Le champ ville ne peut pas être vide");
+   }
 }
 ?>

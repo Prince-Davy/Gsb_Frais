@@ -1,58 +1,58 @@
-<div id="contenu">
-   <h2>Ajout d'un visiteur</h2>
-
-
-   <form method="POST" action="index.php?uc=utilisateur&action=editerUtilisateur">
+<div id="page">
+   <div id="contenu">
       <div class="corpsForm">
          <fieldset>
-            <p>
-               <label for="id">Id :</label>
-               <input id="id" type="text" name="id"  size="30" maxlength="45">
-            </p>
-            <p>
-               <label for="nom">Nom :</label>
-               <input id="nom"  type="text"  name="nom" size="30" maxlength="45">
-            </p>
-            <p>
-               <label for="prenom">Prénom :</label>
-               <input id="prenom" type="text" name="prenom"  size="30" maxlength="45">
-            </p>
 
-            <p>
-               <label for="mdp">Mdp :</label>
-               <input id="mdp" type="password" name="mdp"  size="30" maxlength="45">
-            </p>
+            <table class="listeLegere">
+               <tr>
+                  <th class="id">ID</th>
+                  <th class="login">Login</th>  
+                  <th class="nom">Nom</th>  
+                  <th class="prenom">Prenom</th> 
+                  <th class="adresse">Adresse</th>
+                  <th class="cp">Cp</th>  
+                  <th class="dateEmbauche">DateEmbauche</th>  
+                  <th class="compte">Compte</th>
+                  <th class="button">Bouton</th> 
+               </tr>
 
-            <p>
-               <label for="login">Login :</label>
-               <input id="login"  type="text"  name="login" size="30" maxlength="45">
-            </p>
+               <?php
+               foreach ($lesutilisateurs as $unutilisateur) {
+                  $id = $unutilisateur['id'];
+                  $login = $unutilisateur['login'];
+                  $nom = $unutilisateur['nom'];
+                  $prenom = $unutilisateur['prenom'];
+                  $adresse = $unutilisateur['adresse'];
+                  $cp = $unutilisateur['cp'];
+                  $dateEmbauche = $unutilisateur['dateEmbauche'];
+                  $compte = $unutilisateur['compte'];
+                  ?>
 
-            <p>
-               <label for="adresse">Adresse :</label>
-               <input id="text"  type="text"  name="adresse" size="30" maxlength="45">
-            </p>
+                  <tr>
+                     <td> <?php echo '<input type="text" value="'.$id.'"/>';?></td>
+                     <td> <?php echo '<input type="text" value="'.$login.'"/>';?></td>
+                     <td> <?php echo '<input type="text" value="'.$nom.'"/>';?></td>
+                     <td> <?php echo '<input type="text" value="'.$prenom.'"/>';?></td>
+                     <td> <?php echo '<input type="text" value="'.$adresse.'"/>';?></td>
+                     <td> <?php echo '<input type="text" value="'.$cp.'"/>';?></td>
+                     <td> <?php echo '<input type="text" value="'.$dateEmbauche.'"/>';?></td>
+                     <td> <?php echo '<select>
+                          <option value="visiteur" selected="selected">Visiteur</option>
+                          <option value="comptable">Comptable</option>
+                          <option value="administrateur">Administrateur</option>
+                          </select>';?>
+                     </td>
+                     <td>
+                        <a href="index.php?uc=utilisateur&action=editer=<?php echo $id ?>" 
+                           onclick="return confirm('Voulez-vous vraiment supprimer cet Utilisateur?');">Modifier</a>
+                     </td>
 
-            <p>
-               <label for="ville">Ville :</label>
-               <input id="ville"  type="text"  name="ville" size="30" maxlength="45">
-            </p>
-
-            <label for="typeConnexion">Statut :</label>
-            <select name="typeConnexion" size="1">
-               <option value="visiteur" selected="selected">Visiteur</option>
-               <option value="comptable">Comptable</option>
-               <option value="administrateur">Administrateur</option>
-            </select>
-            <br>
-            <br>
-            <br>
-            <p>
-               <input type="submit" value="Valider" name="valider">
-               <input type="reset" value="Annuler" name="annuler"> 
-            </p>
+                  </tr>
+                  <?php
+               }
+               ?>
+            </table>
          </fieldset>
       </div>
-   </form>
-
+   </div>
 </div>

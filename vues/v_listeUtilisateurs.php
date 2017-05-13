@@ -12,10 +12,7 @@
          <th class="dateEmbauche">dateEmbauche</th>  
          <th class="compte">compte</th> 
       </tr>
-      
-      <fieldset>
-         <legend>Eléments forfaitisés</legend>
-         
+             
          <?php
          foreach ($lesutilisateurs as $unutilisateur) {
             $id = $unutilisateur['id'];

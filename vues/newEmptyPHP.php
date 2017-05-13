@@ -38,7 +38,7 @@
                      <td> <?php echo $dateEmbauche ?></td>
                      <td> <?php echo $compte ?></td>
                      <td>
-                        <a href="index.php?uc=utilisateur&action=supprimer&id=<?php echo $id ?>" 
+                        <a href="index.php?uc=utilisateur&action=modifier&id=<?php echo $id ?>" 
                            onclick="return confirm('Voulez-vous vraiment supprimer cet Utilisateur?');">Supprimer</a>
                      </td>
 

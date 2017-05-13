@@ -328,10 +328,10 @@ class PdoGsb {
     * @param  $ville
     * @return le nombre de ligne affectée par la requête
     */
-   public function ajouterUtilisateur($id,$login, $prenom, $nom,$mdp, $adresse, $ville, $connexion) {
+   public function ajouterUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeConnexion){
      
       $req = "INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `typeConnexion`)"
-              . " VALUES ('$id','$nom', '$prenom', '$login', '$mdp', '$adresse', NULL, '$ville', NULL, '1');";
+              . " VALUES ('$id','$nom', '$prenom', '$login', '$mdp', '$adresse', '$cp', '$ville', '$dateEmbauche', '$typeConnexion');";
       $nbLigne = PdoGsb::$monPdo->exec($req);
       return $nbLigne;
    }
