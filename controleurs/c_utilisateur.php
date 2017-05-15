@@ -12,7 +12,6 @@ switch ($action) {
    case 'listeUtilisateur': {
          // récupération de la liste des utilisateurs(nom + prénom) sous forme de tableau associatifs
          $lesutilisateurs = $pdo->getLesInfosUtilisateurs();
-
          include("vues/v_listeUtilisateurs.php");
          break;
       }
@@ -35,7 +34,7 @@ switch ($action) {
          $typeConnexion = $_POST['typeConnexion'];
          $connexion;
          $nbId = $pdo->getIdExist($id);
-         valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeConnexion);
+         valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $dateEmbauche, $typeConnexion);
          $nbErreurs = nbErreurs();
 
          if ($nbErreurs == 0 & $nbId[0] == 0) {
@@ -54,7 +53,7 @@ switch ($action) {
             }
 
 
-            $nbLigne = $pdo->ajouterUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeConnexion);
+            $nbLigne = $pdo->ajouterUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $dateEmbauche, $typeConnexion);
             $nbErreurs = nbErreurs();
 
             if ($nbLigne != 0) {
@@ -82,16 +81,16 @@ switch ($action) {
       }
 
    case 'supprimer': {
-         $id = $_REQUEST['id'];  
-         /*$nom = $_REQUEST['nom'];  
-         $prenom = $_REQUEST['prenom'];  */
+         $id = $_REQUEST['id'];
+         /* $nom = $_REQUEST['nom'];  
+           $prenom = $_REQUEST['prenom']; */
          $pdo->supprimeIdUtilisateur($id);
          $message = "L'utilisateur a été supprimé !!";
          //$message = "L'utilisateur ".$prenom." ".$nom." a été supprimé !!";
          include_once ("vues/v_information.php");
          header('Location: http://localhost/GSB_FRAIS-master/index.php?uc=utilisateur&action=listeUtilisateur/');
-         break;    
-}
+         break;
+      }
 
    case 'modifierUtilisateur': {
          // récupération de la liste des utilisateurs(nom + prénom) sous forme de tableau associatifs
@@ -99,13 +98,26 @@ switch ($action) {
          include("vues/v_modifierUtilisateur.php");
          break;
       }
-      
+
    case 'editer': {
-      
-      include("v_editerUtilisateur.php");
-      include_once("vues/v_information.php");
-      break;
-   }
+         $id = $_POST['id'];
+         $login = $_POST['login'];
+         $nom = $_POST['nom'];
+         $prenom = $_POST['prenom'];
+         $adresse = $_POST['adresse'];
+         $mdp = $_POST['mdp'];
+         $cp = $_POST['cp'];
+         $dateEmbauche = $_POST['dateEmbauche'];
+         $ville = $_POST['ville'];
+         $typeConnexion = $_POST['typeConnexion'];
+
+         //Verification de la demande modifier
+         majUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $dateEmbauche, $typeConnexion);
+         $message = "Mise à jour effectuée !! ";
+         include_once("vues/v_information.php");
+         header("location:employe.php");
+         break;
+      }
 
    default : {
          include("vues/v_listeUtilisateurs.php");

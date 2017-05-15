@@ -40,6 +40,7 @@
                      <td>
                         <a href="index.php?uc=utilisateur&action=supprimer&id=<?php echo $id ?>" 
                            onclick="return confirm('Voulez-vous vraiment supprimer cet Utilisateur?');">Supprimer</a>
+                       
                      </td>
 
                   </tr>

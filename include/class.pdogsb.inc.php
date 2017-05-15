@@ -335,7 +335,28 @@ class PdoGsb {
       $nbLigne = PdoGsb::$monPdo->exec($req);
       return $nbLigne;
    }
-
+   
+    /**
+    * Mise à jour des champs saisit par l'administrateur
+    * 
+    * @param type $id
+    * @param type $nom
+    * @param type $prenom
+    * @param type $login
+    * @param type $mdp
+    * @param type $adresse
+    * @param type $cp
+    * @param type $ville
+    * @param type $dateEmbauche
+    * @param type $typeConnexion
+    */
+   public function majUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeConnexion){
+      
+      $req = "UPDATE utilisateur set  nom = $nom , prenom = $prenom , login = $login, mdp = $mdp,"
+              . "adresse = $adresse, cp =$cp, ville = $ville, dateEmbauche = $dateEmbauche, typeConnexion = $typeConnexion where id = $id";
+      PdoGsb::$monPdo->exec($req);
+   }
+   
    /**
     * Retourne le dernier mois en cours d'un utilisateur
 
@@ -521,6 +542,12 @@ class PdoGsb {
 		where fichefrais.idUtilisateur ='$idUtilisateur' and fichefrais.mois = '$mois'";
       PdoGsb::$monPdo->exec($req);
    }
+   
+   
+   
+   
+   
+  
 
 }
 ?>

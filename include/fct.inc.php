@@ -389,6 +389,7 @@ function valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp,
    }
 }
 
+
 /**
  * Mise à jour des données d'un utilisateur
  * @param type $nom
