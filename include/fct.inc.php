@@ -20,14 +20,14 @@ function estConnecte() {
  * @param $id 
  * @param $nom
  * @param $prenom
- * @param $typeConnexion
+ * @param $typeconnexion
  * @param compte
  */
-function connecter($id, $nom, $prenom, $typeConnexion, $compte) {
+function connecter($id, $nom, $prenom, $typeconnexion, $compte) {
    $_SESSION['idUtilisateur'] = $id;
    $_SESSION['nom'] = $nom;
    $_SESSION['prenom'] = $prenom;
-   $_SESSION['typeConnexion'] = $typeConnexion;
+   $_SESSION['typeconnexion'] = $typeconnexion;
    $_SESSION['compte'] = $compte;
 }
 
@@ -36,7 +36,7 @@ function connecter($id, $nom, $prenom, $typeConnexion, $compte) {
  * @param $id 
  * @param $nom
  * @param $prenom
- * @param $typeConnexion
+ * @param $typeconnexion
  * @param compte
  * @param $mdp 
  * @param $adresse
@@ -166,7 +166,6 @@ function estDateDepassee($dateTestee) {
 
 /**
  * Vérifie la validité du format d'une date française jj/mm/aaaa 
-
  * @param $date 
  * @return vrai ou faux
  */
@@ -338,7 +337,7 @@ function lireDonneePost($nomDonnee, $valDefaut = "") {
  * @param $cp
  * @param $ville
  */
-function valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeConnexion) {
+function valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeconnexion) {
 
    if ($id == "") {
       ajouterErreur("Le champ id ne peut pas être vide");
@@ -366,6 +365,10 @@ function valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp,
    if ($ville == "") {
       ajouterErreur("Le champ ville ne peut pas être vide");
    }
+   
+   if(!estDateValide($dateEmbauche)){
+            ajouterErreur("Le format de date n'est pas valide");
+	}
 
    if (!is_numeric($cp)) {
       ajouterErreur("Veuillez saisir des valeurs numeriques");
@@ -373,19 +376,10 @@ function valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp,
       if ($cp == "") {
          ajouterErreur("Le champ ville ne peut pas être vide");
       }
-
-
-      if ($dateEmbauche == "") {
-         ajouterErreur("Le champ date ne doit pas être vide");
-      } else {
-         if (!estDatevalide($dateEmbauche)) {
-            ajouterErreur("Date invalide");
-         } 
-      }
    }
 
-   if ($typeConnexion == "") {
-      ajouterErreur("Le champ typeConnexion ne peut pas être vide");
+   if ($typeconnexion == "") {
+      ajouterErreur("Le champ typeconnexion ne peut pas être vide");
    }
 }
 

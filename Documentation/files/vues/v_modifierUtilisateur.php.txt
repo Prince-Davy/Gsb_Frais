@@ -38,8 +38,8 @@
                <input id="ville"  type="text"  name="ville" size="30" maxlength="45">
             </p>
 
-            <label for="typeConnexion">Statut :</label>
-            <select name="typeConnexion" size="1">
+            <label for="typeconnexion">Statut :</label>
+            <select name="typeconnexion" size="1">
                <option value="visiteur" selected="selected">Visiteur</option>
                <option value="comptable">Comptable</option>
                <option value="administrateur">Administrateur</option>

@@ -23,7 +23,17 @@ class PdoGsb {
    private static $mdp = 'root';
    private static $monPdo;
    private static $monPdoGsb = null;
-
+/*
+   private static $serveur = 'db681615291.db.1and1.com	';
+   private static $bdd = 'dbname=db681615291';
+   private static $user = 'dbo681615291';
+   private static $mdp = 'Root.85';
+   private static $monPdo;
+   private static $monPdoGsb = null;
+  /* 
+   
+   
+   
    /**
     * Constructeur privé, crée l'instance de PDO qui sera sollicitée
     * pour toutes les méthodes de la classe
@@ -76,8 +86,8 @@ class PdoGsb {
     */
    public function getInfosUtilisateur($login, $mdp) {
 
-      $req = "select utilisateur.id as id, utilisateur.nom as nom, utilisateur.prenom as prenom, utilisateur.typeConnexion as typeConnexion , typeConnexion.compte as compte from utilisateur 
-                INNER JOIN typeConnexion ON typeConnexion.id = utilisateur.typeConnexion
+      $req = "select utilisateur.id as id, utilisateur.nom as nom, utilisateur.prenom as prenom, utilisateur.typeconnexion as typeconnexion , typeconnexion.compte as compte from utilisateur 
+                INNER JOIN typeconnexion ON typeconnexion.id = utilisateur.typeconnexion
 		where utilisateur.login='$login' and utilisateur.mdp='$mdp'";
       $rs = PdoGsb::$monPdo->query($req);
       $ligne = $rs->fetch();
@@ -210,7 +220,7 @@ class PdoGsb {
     * @return un tableau associatif
     */
    public function getLesUtilisateurs() {
-      $req = "select id,nom,prenom from utilisateur where typeConnexion='1' order by nom asc";
+      $req = "select id,nom,prenom from utilisateur where typeconnexion='1' order by nom asc";
       $res = PdoGsb::$monPdo->query($req);
       $lignes = $res->fetchAll();
       return $lignes;
@@ -222,8 +232,8 @@ class PdoGsb {
     */
    public function getLesInfosUtilisateurs() {
       $req = "select utilisateur.id as id, utilisateur.login as login , utilisateur.nom as nom, utilisateur.prenom as prenom, utilisateur.adresse as adresse ,"
-              . " utilisateur.cp as cp, utilisateur.dateEmbauche, typeConnexion.compte as compte from utilisateur "
-              . "INNER JOIN typeConnexion ON typeConnexion.id = utilisateur.typeConnexion order by nom ASC";
+              . " utilisateur.cp as cp, utilisateur.ville as ville, utilisateur.dateEmbauche as dateEmbauche, typeconnexion.compte as compte from utilisateur "
+              . "INNER JOIN typeconnexion ON typeconnexion.id = utilisateur.typeconnexion order by nom ASC";
       $res = PdoGsb::$monPdo->query($req);
       $lignes = $res->fetchAll();
       return $lignes;
@@ -234,7 +244,7 @@ class PdoGsb {
     * @return un tableau associatif
     */
    public function getIdUtilisateur() {
-      $req = "select id from utilisateur where typeConnexion='1' order by nom asc";
+      $req = "select id from utilisateur where typeconnexion='1' order by nom asc";
       $res = PdoGsb::$monPdo->query($req);
       $lignes = $res->fetch();
       return $lignes;
@@ -328,10 +338,11 @@ class PdoGsb {
     * @param  $ville
     * @return le nombre de ligne affectée par la requête
     */
-   public function ajouterUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeConnexion){
-     
-      $req = "INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `typeConnexion`)"
-              . " VALUES ('$id','$nom', '$prenom', '$login', '$mdp', '$adresse', '$cp', '$ville', '$dateEmbauche', '$typeConnexion');";
+   public function ajouterUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeconnexion){
+      
+      $dateFr = dateFrancaisVersAnglais($dateEmbauche);
+      $req = "INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `typeconnexion`)"
+              . " VALUES ('$id','$nom', '$prenom', '$login', '$mdp', '$adresse', '$cp', '$ville', '$dateFr ', '$typeconnexion')";
       $nbLigne = PdoGsb::$monPdo->exec($req);
       return $nbLigne;
    }
@@ -348,12 +359,12 @@ class PdoGsb {
     * @param type $cp
     * @param type $ville
     * @param type $dateEmbauche
-    * @param type $typeConnexion
+    * @param type $typeconnexion
     */
-   public function majUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeConnexion){
+   public function majUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeconnexion){
       
       $req = "UPDATE utilisateur set  nom = $nom , prenom = $prenom , login = $login, mdp = $mdp,"
-              . "adresse = $adresse, cp =$cp, ville = $ville, dateEmbauche = $dateEmbauche, typeConnexion = $typeConnexion where id = $id";
+              . "adresse = $adresse, cp =$cp, ville = $ville, dateEmbauche = $dateEmbauche, typeconnexion = $typeconnexion where id = $id";
       PdoGsb::$monPdo->exec($req);
    }
    

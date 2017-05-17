@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 27 Février 2017 à 21:47
+-- Généré le :  Mar 16 Mai 2017 à 20:11
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.25
 
@@ -231,7 +231,8 @@ INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantVa
 ('a17', '201612', 10, '3992.31', '2017-01-23', 'VA'),
 ('a17', '201701', 0, '0.00', '2017-02-20', 'CR'),
 ('a17', '201702', 2, '262.00', '2017-02-20', 'RB'),
-('a17', '201703', 0, '0.00', '2017-02-20', 'CR'),
+('a17', '201703', 0, '350.00', '2017-05-01', 'RB'),
+('a17', '201705', 0, '0.00', '2017-05-01', 'CR'),
 ('a55', '201001', 10, '2759.05', '2010-03-08', 'RB'),
 ('a55', '201002', 3, '2528.49', '2010-04-05', 'RB'),
 ('a55', '201003', 9, '3655.38', '2010-05-01', 'RB'),
@@ -400,6 +401,7 @@ INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantVa
 ('a93', '201610', 6, '6464.28', '2016-12-07', 'RB'),
 ('a93', '201611', 3, '2917.01', '2016-12-04', 'VA'),
 ('a93', '201612', 2, '0.00', '2016-12-04', 'CR'),
+('ad99', '201705', 0, '0.00', '2017-05-03', 'CR'),
 ('b13', '201001', 8, '6104.46', '2010-03-07', 'RB'),
 ('b13', '201002', 2, '2802.78', '2010-04-02', 'RB'),
 ('b13', '201003', 0, '5281.44', '2010-05-01', 'RB'),
@@ -1032,10 +1034,10 @@ INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantVa
 ('b50', '201306', 2, '4214.00', '2013-08-01', 'RB'),
 ('b50', '201307', 10, '2677.66', '2013-09-08', 'RB'),
 ('b50', '201308', 1, '3716.52', '2013-10-04', 'RB'),
-('b50', '201309', 9, '4094.36', '2013-11-01', 'RB'),
-('b50', '201310', 2, '3506.86', '2013-12-06', 'RB'),
-('b50', '201311', 11, '3959.91', '2014-01-02', 'RB');
+('b50', '201309', 9, '4094.36', '2013-11-01', 'RB');
 INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantValide`, `dateModif`, `idEtat`) VALUES
+('b50', '201310', 2, '3506.86', '2013-12-06', 'RB'),
+('b50', '201311', 11, '3959.91', '2014-01-02', 'RB'),
 ('b50', '201312', 4, '3151.73', '2014-02-05', 'RB'),
 ('b50', '201401', 8, '3553.55', '2014-03-02', 'RB'),
 ('b50', '201402', 9, '5921.45', '2014-04-06', 'RB'),
@@ -1577,6 +1579,7 @@ INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantVa
 ('d51', '201610', 2, '5206.62', '2016-12-06', 'RB'),
 ('d51', '201611', 12, '3613.98', '2016-12-01', 'VA'),
 ('d51', '201612', 0, '0.00', '2016-12-04', 'CR'),
+('dam5', '201705', 0, '0.00', '2017-05-09', 'CR'),
 ('e22', '201001', 7, '3612.30', '2010-03-07', 'RB'),
 ('e22', '201002', 7, '3643.13', '2010-04-02', 'RB'),
 ('e22', '201003', 3, '4986.08', '2010-05-01', 'RB'),
@@ -2009,11 +2012,11 @@ INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantVa
 ('e52', '201010', 2, '4963.64', '2010-12-02', 'RB'),
 ('e52', '201011', 4, '4163.79', '2011-01-05', 'RB'),
 ('e52', '201012', 7, '4803.99', '2011-02-06', 'RB'),
-('e52', '201101', 2, '4172.91', '2011-03-05', 'RB'),
+('e52', '201101', 2, '4172.91', '2011-03-05', 'RB');
+INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantValide`, `dateModif`, `idEtat`) VALUES
 ('e52', '201102', 12, '4918.89', '2011-04-06', 'RB'),
 ('e52', '201103', 12, '6011.55', '2011-05-04', 'RB'),
-('e52', '201104', 1, '6138.63', '2011-06-03', 'RB');
-INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantValide`, `dateModif`, `idEtat`) VALUES
+('e52', '201104', 1, '6138.63', '2011-06-03', 'RB'),
 ('e52', '201105', 1, '4227.96', '2011-07-07', 'RB'),
 ('e52', '201106', 3, '8091.95', '2011-08-06', 'RB'),
 ('e52', '201107', 10, '4773.95', '2011-09-08', 'RB'),
@@ -2334,6 +2337,7 @@ INSERT INTO `fichefrais` (`idUtilisateur`, `mois`, `nbJustificatifs`, `montantVa
 ('f4', '201610', 4, '3747.69', '2016-12-06', 'RB'),
 ('f4', '201611', 9, '4824.38', '2016-12-07', 'VA'),
 ('f4', '201612', 4, '0.00', '2016-12-01', 'CR'),
+('mc05', '201705', 0, '0.00', '2017-05-06', 'CR'),
 ('n05', '201001', 12, '4370.69', '2010-03-03', 'RB'),
 ('n05', '201002', 3, '2546.08', '2010-04-08', 'RB'),
 ('n05', '201003', 10, '4479.55', '2010-05-08', 'RB'),
@@ -3145,6 +3149,10 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('a17', '201703', 'KM', 0),
 ('a17', '201703', 'NUI', 0),
 ('a17', '201703', 'REP', 0),
+('a17', '201705', 'ETP', 0),
+('a17', '201705', 'KM', 0),
+('a17', '201705', 'NUI', 0),
+('a17', '201705', 'REP', 0),
 ('a55', '201001', 'ETP', 5),
 ('a55', '201001', 'KM', 918),
 ('a55', '201001', 'NUI', 5),
@@ -3817,6 +3825,10 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('a93', '201612', 'KM', 913),
 ('a93', '201612', 'NUI', 16),
 ('a93', '201612', 'REP', 9),
+('ad99', '201705', 'ETP', 0),
+('ad99', '201705', 'KM', 0),
+('ad99', '201705', 'NUI', 0),
+('ad99', '201705', 'REP', 0),
 ('b13', '201001', 'ETP', 11),
 ('b13', '201001', 'KM', 433),
 ('b13', '201001', 'NUI', 6),
@@ -4241,7 +4253,8 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('b16', '201110', 'KM', 786),
 ('b16', '201110', 'NUI', 15),
 ('b16', '201110', 'REP', 6),
-('b16', '201111', 'ETP', 2),
+('b16', '201111', 'ETP', 2);
+INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
 ('b16', '201111', 'KM', 599),
 ('b16', '201111', 'NUI', 14),
 ('b16', '201111', 'REP', 19),
@@ -4249,8 +4262,7 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('b16', '201112', 'KM', 421),
 ('b16', '201112', 'NUI', 5),
 ('b16', '201112', 'REP', 2),
-('b16', '201201', 'ETP', 5);
-INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
+('b16', '201201', 'ETP', 5),
 ('b16', '201201', 'KM', 757),
 ('b16', '201201', 'NUI', 11),
 ('b16', '201201', 'REP', 3),
@@ -6052,7 +6064,8 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('b4', '201406', 'REP', 6),
 ('b4', '201407', 'ETP', 6),
 ('b4', '201407', 'KM', 478),
-('b4', '201407', 'NUI', 4),
+('b4', '201407', 'NUI', 4);
+INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
 ('b4', '201407', 'REP', 13),
 ('b4', '201408', 'ETP', 5),
 ('b4', '201408', 'KM', 558),
@@ -6061,8 +6074,7 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('b4', '201409', 'ETP', 20),
 ('b4', '201409', 'KM', 363),
 ('b4', '201409', 'NUI', 8),
-('b4', '201409', 'REP', 15);
-INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
+('b4', '201409', 'REP', 15),
 ('b4', '201410', 'ETP', 15),
 ('b4', '201410', 'KM', 747),
 ('b4', '201410', 'NUI', 4),
@@ -7872,7 +7884,8 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('d13', '201005', 'NUI', 3),
 ('d13', '201005', 'REP', 7),
 ('d13', '201006', 'ETP', 18),
-('d13', '201006', 'KM', 938),
+('d13', '201006', 'KM', 938);
+INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
 ('d13', '201006', 'NUI', 4),
 ('d13', '201006', 'REP', 7),
 ('d13', '201007', 'ETP', 18),
@@ -7881,8 +7894,7 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('d13', '201007', 'REP', 9),
 ('d13', '201008', 'ETP', 17),
 ('d13', '201008', 'KM', 804),
-('d13', '201008', 'NUI', 8);
-INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
+('d13', '201008', 'NUI', 8),
 ('d13', '201008', 'REP', 12),
 ('d13', '201009', 'ETP', 9),
 ('d13', '201009', 'KM', 510),
@@ -9675,7 +9687,8 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('e49', '201212', 'ETP', 12),
 ('e49', '201212', 'KM', 941),
 ('e49', '201212', 'NUI', 14),
-('e49', '201212', 'REP', 3),
+('e49', '201212', 'REP', 3);
+INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
 ('e49', '201301', 'ETP', 16),
 ('e49', '201301', 'KM', 735),
 ('e49', '201301', 'NUI', 14),
@@ -9684,8 +9697,7 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('e49', '201302', 'KM', 932),
 ('e49', '201302', 'NUI', 10),
 ('e49', '201302', 'REP', 5),
-('e49', '201303', 'ETP', 18);
-INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
+('e49', '201303', 'ETP', 18),
 ('e49', '201303', 'KM', 636),
 ('e49', '201303', 'NUI', 10),
 ('e49', '201303', 'REP', 10),
@@ -11501,7 +11513,8 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('f4', '201512', 'KM', 398),
 ('f4', '201512', 'NUI', 16),
 ('f4', '201512', 'REP', 6),
-('f4', '201601', 'ETP', 13),
+('f4', '201601', 'ETP', 13);
+INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
 ('f4', '201601', 'KM', 794),
 ('f4', '201601', 'NUI', 9),
 ('f4', '201601', 'REP', 7),
@@ -11510,8 +11523,7 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('f4', '201602', 'NUI', 14),
 ('f4', '201602', 'REP', 13),
 ('f4', '201603', 'ETP', 12),
-('f4', '201603', 'KM', 673);
-INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `quantite`) VALUES
+('f4', '201603', 'KM', 673),
 ('f4', '201603', 'NUI', 16),
 ('f4', '201603', 'REP', 13),
 ('f4', '201604', 'ETP', 4),
@@ -11550,6 +11562,10 @@ INSERT INTO `lignefraisforfait` (`idUtilisateur`, `mois`, `idFraisForfait`, `qua
 ('f4', '201612', 'KM', 353),
 ('f4', '201612', 'NUI', 11),
 ('f4', '201612', 'REP', 17),
+('mc05', '201705', 'ETP', 0),
+('mc05', '201705', 'KM', 0),
+('mc05', '201705', 'NUI', 0),
+('mc05', '201705', 'REP', 0),
 ('n05', '201001', 'ETP', 15),
 ('n05', '201001', 'KM', 686),
 ('n05', '201001', 'NUI', 14),
@@ -33992,8 +34008,8 @@ INSERT INTO `lignefraishorsforfait` (`id`, `idUtilisateur`, `mois`, `libelle`, `
 --
 
 CREATE TABLE `typeconnexion` (
-  `id` int(11) NOT NULL,
-  `compte` char(50) NOT NULL
+  `id` char(4) NOT NULL,
+  `compte` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -34001,8 +34017,9 @@ CREATE TABLE `typeconnexion` (
 --
 
 INSERT INTO `typeconnexion` (`id`, `compte`) VALUES
-(1, 'Visiteur'),
-(2, 'Comptable');
+('1', 'Visiteur'),
+('2', 'Comptable'),
+('3', 'Administrateur');
 
 -- --------------------------------------------------------
 
@@ -34017,45 +34034,50 @@ CREATE TABLE `utilisateur` (
   `login` char(20) DEFAULT NULL,
   `mdp` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `adresse` char(30) DEFAULT NULL,
-  `cp` char(5) DEFAULT NULL,
+  `cp` varchar(5) DEFAULT NULL,
   `ville` char(30) DEFAULT NULL,
   `dateEmbauche` date DEFAULT NULL,
-  `typeconnexion` int(11) NOT NULL
+  `typeConnexion` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `typeconnexion`) VALUES
-('a131', 'Villechalane', 'Louis', 'lvillachane', 'jux7g', '8 rue des Charmes', '46000', 'Cahors', '2005-12-21', 1),
-('a17', 'Andre', 'David', 'dandre', '$2y$10$4IBY1QCZuSwqARbLuxduI.W9g8RJ/kEfoidqOvaRIyAHAhFNy1kVC', '1 rue Petit', '46200', 'Lalbenque', '1998-11-23', 1),
-('a55', 'Bedos', 'Christian', 'cbedos', 'gmhxd', '1 rue Peranud', '46250', 'Montcuq', '1995-01-12', 1),
-('a93', 'Tusseau', 'Louis', 'ltusseau', 'ktp3s', '22 rue des Ternes', '46123', 'Gramat', '2000-05-01', 1),
-('b13', 'Bentot', 'Pascal', 'pbentot', 'doyw1', '11 allée des Cerises', '46512', 'Bessines', '1992-07-09', 1),
-('b16', 'Bioret', 'Luc', 'lbioret', 'hrjfs', '1 Avenue gambetta', '46000', 'Cahors', '1998-05-11', 1),
-('b19', 'Bunisset', 'Francis', 'fbunisset', '4vbnd', '10 rue des Perles', '93100', 'Montreuil', '1987-10-21', 1),
-('b25', 'Bunisset', 'Denise', 'dbunisset', 's1y1r', '23 rue Manin', '75019', 'paris', '2010-12-05', 1),
-('b28', 'Cacheux', 'Bernard', 'bcacheux', 'uf7r3', '114 rue Blanche', '75017', 'Paris', '2009-11-12', 1),
-('b34', 'Cadic', 'Eric', 'ecadic', '6u8dc', '123 avenue de la République', '75011', 'Paris', '2008-09-23', 1),
-('b4', 'Charoze', 'Catherine', 'ccharoze', 'u817o', '100 rue Petit', '75019', 'Paris', '2005-11-12', 1),
-('b50', 'Clepkens', 'Christophe', 'cclepkens', 'bw1us', '12 allée des Anges', '93230', 'Romainville', '2003-08-11', 1),
-('b59', 'Cottin', 'Vincenne', 'vcottin', '2hoh9', '36 rue Des Roches', '93100', 'Monteuil', '2001-11-18', 1),
-('c14', 'Daburon', 'François', 'fdaburon', '7oqpv', '13 rue de Chanzy', '94000', 'Créteil', '2002-02-11', 1),
-('c3', 'De', 'Philippe', 'pde', 'gk9kx', '13 rue Barthes', '94000', 'Créteil', '2010-12-14', 1),
-('c54', 'Debelle', 'Michel', 'mdebelle', 'od5rt', '181 avenue Barbusse', '93210', 'Rosny', '2006-11-23', 1),
-('d13', 'Debelle', 'Jeanne', 'jdebelle', 'nvwqq', '134 allée des Joncs', '44000', 'Nantes', '2000-05-11', 1),
-('d51', 'Debroise', 'Michel', 'mdebroise', 'sghkb', '2 Bld Jourdain', '44000', 'Nantes', '2001-04-17', 1),
-('e22', 'Desmarquest', 'Nathalie', 'ndesmarquest', 'f1fob', '14 Place d Arc', '45000', 'Orléans', '2005-11-12', 1),
-('e24', 'Desnost', 'Pierre', 'pdesnost', '4k2o5', '16 avenue des Cèdres', '23200', 'Guéret', '2001-02-05', 1),
-('e39', 'Dudouit', 'Frédéric', 'fdudouit', '44im8', '18 rue de l église', '23120', 'GrandBourg', '2000-08-01', 1),
-('e49', 'Duncombe', 'Claude', 'cduncombe', 'qf77j', '19 rue de la tour', '23100', 'La souteraine', '1987-10-10', 1),
-('e5', 'Enault-Pascreau', 'Céline', 'cenault', 'y2qdu', '25 place de la gare', '23200', 'Gueret', '1995-09-01', 1),
-('e52', 'Eynde', 'Valérie', 'veynde', 'i7sn3', '3 Grand Place', '13015', 'Marseille', '1999-11-01', 1),
-('f21', 'Finck', 'Jacques', 'jfinck', 'mpb3t', '10 avenue du Prado', '13002', 'Marseille', '2001-11-10', 1),
-('f39', 'Frémont', 'Fernande', 'ffremont', 'xs5tq', '4 route de la mer', '13012', 'Allauh', '1998-10-01', 1),
-('f4', 'Gest', 'Alain', 'agest', 'dywvt', '30 avenue de la mer', '13025', 'Berre', '1985-11-01', 1),
-('n05', 'Nkakou', 'Prince-Davy', 'nkp', '$2y$10$H3eyzSPGnlrYSmUfaJfmguNmnf9HOrJMZVBPSNaCSk06nDasKAlSO', '37 av Mal de Lattre de Tas', '69500', 'Bron', '2010-01-20', 2);
+INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `typeConnexion`) VALUES
+('a131', 'Villechalane', 'Louis', 'lvillachane', 'jux7g', '8 rue des Charmes', '46000', 'Cahors', '2005-12-21', '1'),
+('a17', 'Andre', 'David', 'dandre', 'oppg5', '1 rue Petit', '46200', 'Lalbenque', '1998-11-23', '1'),
+('a55', 'Bedos', 'Christian', 'cbedos', 'gmhxd', '1 rue Peranud', '46250', 'Montcuq', '1995-01-12', '1'),
+('a93', 'Tusseau', 'Louis', 'ltusseau', 'ktp3s', '22 rue des Ternes', '46123', 'Gramat', '2000-05-01', '1'),
+('ad99', 'Luke', 'Lucky', 'admin', 'admin', '682 Rue de la Paix', '75000', 'Paris', '2010-01-01', '3'),
+('ap', 'q', 'aqaq', 'wwww', 'qqqq', 'uuuuuuu', '23', 'frfrffrfrfrf', '2017-05-21', '2'),
+('b13', 'Bentot', 'Pascal', 'pbentot', 'doyw1', '11 allée des Cerises', '46512', 'Bessines', '1992-07-09', '1'),
+('b16', 'Bioret', 'Luc', 'lbioret', 'hrjfs', '1 Avenue gambetta', '46000', 'Cahors', '1998-05-11', '1'),
+('b19', 'Bunisset', 'Francis', 'fbunisset', '4vbnd', '10 rue des Perles', '93100', 'Montreuil', '1987-10-21', '1'),
+('b25', 'Bunisset', 'Denise', 'dbunisset', 's1y1r', '23 rue Manin', '75019', 'paris', '2010-12-05', '1'),
+('b28', 'Cacheux', 'Bernard', 'bcacheux', 'uf7r3', '114 rue Blanche', '75017', 'Paris', '2009-11-12', '1'),
+('b34', 'Cadic', 'Eric', 'ecadic', '6u8dc', '123 avenue de la République', '75011', 'Paris', '2008-09-23', '1'),
+('b4', 'Charoze', 'Catherine', 'ccharoze', 'u817o', '100 rue Petit', '75019', 'Paris', '2005-11-12', '1'),
+('b50', 'Clepkens', 'Christophe', 'cclepkens', 'bw1us', '12 allée des Anges', '93230', 'Romainville', '2003-08-11', '1'),
+('b59', 'Cottin', 'Vincenne', 'vcottin', '2hoh9', '36 rue Des Roches', '93100', 'Monteuil', '2001-11-18', '1'),
+('c14', 'Daburon', 'François', 'fdaburon', '7oqpv', '13 rue de Chanzy', '94000', 'Créteil', '2002-02-11', '1'),
+('c3', 'De', 'Philippe', 'pde', 'gk9kx', '13 rue Barthes', '94000', 'Créteil', '2010-12-14', '1'),
+('c54', 'Debelle', 'Michel', 'mdebelle', 'od5rt', '181 avenue Barbusse', '93210', 'Rosny', '2006-11-23', '1'),
+('d13', 'Debelle', 'Jeanne', 'jdebelle', 'nvwqq', '134 allée des Joncs', '44000', 'Nantes', '2000-05-11', '1'),
+('d51', 'Debroise', 'Michel', 'mdebroise', 'sghkb', '2 Bld Jourdain', '44000', 'Nantes', '2001-04-17', '1'),
+('dam5', 'luda', 'Damien', 'Lupas', 'dada', '75 rue des cailles', NULL, 'Beaulieu', NULL, '1'),
+('det', 'hjhgf', 'zeghgg', 'yjhgfd', 'thrgf', 'hgfdfsc', '69000', 'lukyjthrgwrxtcyvub', '2004-11-21', 'visiteur'),
+('e22', 'Desmarquest', 'Nathalie', 'ndesmarquest', 'f1fob', '14 Place d Arc', '45000', 'Orléans', '2005-11-12', '1'),
+('e24', 'Desnost', 'Pierre', 'pdesnost', '4k2o5', '16 avenue des Cèdres', '23200', 'Guéret', '2001-02-05', '1'),
+('e39', 'Dudouit', 'Frédéric', 'fdudouit', '44im8', '18 rue de l église', '23120', 'GrandBourg', '2000-08-01', '1'),
+('e49', 'Duncombe', 'Claude', 'cduncombe', 'qf77j', '19 rue de la tour', '23100', 'La souteraine', '1987-10-10', '1'),
+('e5', 'Enault-Pascreau', 'Céline', 'cenault', 'y2qdu', '25 place de la gare', '23200', 'Gueret', '1995-09-01', '1'),
+('e52', 'Eynde', 'Valérie', 'veynde', 'i7sn3', '3 Grand Place', '13015', 'Marseille', '1999-11-01', '1'),
+('f21', 'Finck', 'Jacques', 'jfinck', 'mpb3t', '10 avenue du Prado', '13002', 'Marseille', '2001-11-10', '1'),
+('f39', 'Frémont', 'Fernande', 'ffremont', 'xs5tq', '4 route de la mer', '13012', 'Allauh', '1998-10-01', '1'),
+('f4', 'Gest', 'Alain', 'agest', 'dywvt', '30 avenue de la mer', '13025', 'Berre', '1985-11-01', '1'),
+('mc05', 'Cucuss', 'Marco', 'macoss', 'mco', '84 rue du Poulin', '86000', 'Poitiers', '2014-10-13', '1'),
+('n05', 'Nkakou', 'Prince-Davy', 'compt', 'compt', '37 av Mal de Lattre de Tas', '69500', 'Bron', '2010-01-20', '2');
 
 --
 -- Index pour les tables exportées
@@ -34098,16 +34120,18 @@ ALTER TABLE `lignefraishorsforfait`
 -- Index pour la table `typeconnexion`
 --
 ALTER TABLE `typeconnexion`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
 
 --
 -- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `typeconnexion` (`typeconnexion`) USING BTREE,
-  ADD KEY `typeconnexion_2` (`typeconnexion`),
-  ADD KEY `typeconnexion_3` (`typeconnexion`);
+  ADD KEY `typeConnexion` (`typeConnexion`) USING BTREE,
+  ADD KEY `typeConnexion_2` (`typeConnexion`),
+  ADD KEY `typeConnexion_3` (`typeConnexion`),
+  ADD KEY `typeConnexion_4` (`typeConnexion`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -34118,11 +34142,6 @@ ALTER TABLE `utilisateur`
 --
 ALTER TABLE `lignefraishorsforfait`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22063;
---
--- AUTO_INCREMENT pour la table `typeconnexion`
---
-ALTER TABLE `typeconnexion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Contraintes pour les tables exportées
 --

@@ -31,10 +31,7 @@ switch($uc){
 		include("controleurs/c_utilisateur.php");
                 break; 
 	}
-        case 'majUtilisateurs' :{
-		include("controleurs/majUtilisateurs.php");
-                break; 
-	}
+        
 }
 include("vues/v_pied.php") ;
 ?>

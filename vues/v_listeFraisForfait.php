@@ -27,24 +27,25 @@
                   <input id="annuler" type="reset" value="Effacer" size="20" />
                </p> 
             </div>
-
-               <div>
+         </fieldset>
+      </div>
+            </form>
+      <div>
                <fieldset>	
                   <legend>Indemnite Kilometriques</legend>
-
                   <div>	
                      <p> Type Vehicule
-                        <select id="vehicule" name="vehicule" onclick="calculIndemnite()">
-                           <option value="Véhicule 4CV">Véhicule 4CV</option>    
-                           <option value="Véhicule 5CV">Véhicule 5CV</option>
-                           <option value="Véhicule 6CV">Véhicule 6CV</option>
+                        <select id="vehicule" name="vehicule">
+                           <option value="Vehicule 4CV">Véhicule 4CV</option>    
+                           <option value="Vehicule 5CV">Véhicule 5CV</option>
+                           <option value="Vehicule 6CV">Véhicule 6CV</option>
                         </select>
                      </p>
                   </div>
 
                   <div>	
                      <p> Puissance
-                        <select id="puissance" name="puissance" onchange="calculIndemnite()">
+                        <select id="puissance" name="puissance">
                            <option value="Diesel">Diesel</option>
                            <option value="Essence">Essence</option>
                         </select>
@@ -52,7 +53,7 @@
                   </div>
 
                   <div>
-                     <p> Distance <input name="Distance" id="distance" style="text-align:right" placeholder="0" type="number"> Km </p>
+                     <p> Distance <input name="distance" id="distance" style="text-align:right" placeholder="0" type="number"> Km </p>
                   </div>
 
                   <div>
@@ -67,36 +68,14 @@
                   <script>
                      function calculIndemnite()
                      {
-                        var x = document.getElementById("vehicule").value;
-                        var y = document.getElementById("puissance").value;
-                        var z = document.getElementById("distance").value;
-                        var prix;
-                        var resultat;
-
-                        if ((y == "Essence") && ((x == "Véhicule 5CV") || ("Véhicule 6CV")))
-                        {
-                           prix = 0.67;
-
-                        }
-                        if ((y == "Essence") && ((x == "Véhicule 4CV")))
-                        {
-                           prix = 0.62;
-                        }
-
-                        if ((y == "Diesel") && ((x == "Véhicule 5CV") || ("Véhicule 6CV")))
-                        {
-                           prix = 0.58;
-                        }
-                        if ((y == "Diesel") && ((x == "Véhicule 4CV")))
-                        {
-                           prix = 0.52;
-                        }
-
-                        resultat = prix * z;
-                        document.getElementById("montant").value = round(resultat);
+                        var distance = document.getElementsByName("distance")[0].tagName;
+                        var puissance = document.getElementsByName("puissance")[0].tagName;
+                        var vehicule = document.getElementsByName("vehicule")[0].tagName;
+                        
+                        
+                        document.getElementById("montant").values = distance + " " + puissance + " " + vehicule;
                      }
                   </script>
 
                </fieldset>
             </div>
-            </form>

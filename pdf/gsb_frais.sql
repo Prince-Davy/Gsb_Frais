@@ -34020,14 +34020,14 @@ CREATE TABLE `utilisateur` (
   `cp` char(5) DEFAULT NULL,
   `ville` char(30) DEFAULT NULL,
   `dateEmbauche` date DEFAULT NULL,
-  `typeConnexion` int(11) NOT NULL
+  `typeconnexion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `typeConnexion`) VALUES
+INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `typeconnexion`) VALUES
 ('a131', 'Villechalane', 'Louis', 'lvillachane', 'jux7g', '8 rue des Charmes', '46000', 'Cahors', '2005-12-21', 1),
 ('a17', 'Andre', 'David', 'dandre', '$2y$10$4IBY1QCZuSwqARbLuxduI.W9g8RJ/kEfoidqOvaRIyAHAhFNy1kVC', '1 rue Petit', '46200', 'Lalbenque', '1998-11-23', 1),
 ('a55', 'Bedos', 'Christian', 'cbedos', 'gmhxd', '1 rue Peranud', '46250', 'Montcuq', '1995-01-12', 1),
@@ -34105,9 +34105,9 @@ ALTER TABLE `typeconnexion`
 --
 ALTER TABLE `utilisateur`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `typeConnexion` (`typeConnexion`) USING BTREE,
-  ADD KEY `typeConnexion_2` (`typeConnexion`),
-  ADD KEY `typeConnexion_3` (`typeConnexion`);
+  ADD KEY `typeconnexion` (`typeconnexion`) USING BTREE,
+  ADD KEY `typeconnexion_2` (`typeconnexion`),
+  ADD KEY `typeconnexion_3` (`typeconnexion`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées

@@ -29,20 +29,21 @@ switch ($action) {
          $adresse = $_POST['adresse'];
          $mdp = $_POST['mdp'];
          $cp = $_POST['cp'];
-         $dateEmbauche = $_POST['dateEmbauche'];
          $ville = $_POST['ville'];
-         $typeConnexion = $_POST['typeConnexion'];
+         $dateEmbauche = $_POST['dateEmbauche'];
+         $typeconnexion = $_POST['typeconnexion'];
          $connexion;
          $nbId = $pdo->getIdExist($id);
-         valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $dateEmbauche, $typeConnexion);
+         
+         valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville,$dateEmbauche, $typeconnexion);
          $nbErreurs = nbErreurs();
 
          if ($nbErreurs == 0 & $nbId[0] == 0) {
 
             //Modificationdu type de compte 
-            if ($typeConnexion == "visiteur") {
+            if ($typeconnexion == "visiteur") {
                $connexion = 1;
-            } elseif ($typeConnexion == "comptable") {
+            } elseif ($typeconnexion == "comptable") {
                $connexion = 2;
             } else {
                $connexion = 3;
@@ -52,22 +53,34 @@ switch ($action) {
                ajouterErreur("ID déjà existant. Il doit être différend de '" . $id . "'");
             }
 
-
-            $nbLigne = $pdo->ajouterUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $dateEmbauche, $typeConnexion);
+            $nbLignes = $pdo->ajouterUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $dateEmbauche, $typeconnexion);
             $nbErreurs = nbErreurs();
 
-            if ($nbLigne != 0) {
+            if ($nbLignes != 0) {
                echo "<br>";
-               $message = "L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeConnexion . " est crée";
+               switch ($connexion) {
+                  case 1:
+                     $message = "Le Visiteur " . $nom . " " . $prenom . " est crée";
+                     break;
+                  
+                  case 2:
+                     $message = "Le Comptable " . $nom . " " . $prenom . " est crée";
+                     break;
+                  
+                  case 3:
+                     $message = "L'Administrateur " . $nom . " " . $prenom . " est crée";
+                     break;
+
+                  default:
+                     $message = "Aucun utilisateur n'est crée";
+                     break;
+               }
+               
             } else {
-               $message = ajouterErreur("!!Echec!! L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeConnexion . " n'a pu être crée");
+               $message = ajouterErreur("!!Echec!! L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeconnexion . " n'a pu être crée");
                include("vues/v_erreurs.php");
             }
-         } else {
-            $message = ajouterErreur("!!Echec!! L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeConnexion . " n'a pu être crée");
-            include("vues/v_erreurs.php");
-         }
-
+         } 
          include_once ("vues/v_information.php");
          include("vues/v_creationUtilisateur.php");
          break;
@@ -82,45 +95,16 @@ switch ($action) {
 
    case 'supprimer': {
          $id = $_REQUEST['id'];
-         /* $nom = $_REQUEST['nom'];  
-           $prenom = $_REQUEST['prenom']; */
          $pdo->supprimeIdUtilisateur($id);
+         
          $message = "L'utilisateur a été supprimé !!";
-         //$message = "L'utilisateur ".$prenom." ".$nom." a été supprimé !!";
          include_once ("vues/v_information.php");
-         header('Location: http://localhost/GSB_FRAIS-master/index.php?uc=utilisateur&action=listeUtilisateur/');
-         break;
-      }
-
-   case 'modifierUtilisateur': {
-         // récupération de la liste des utilisateurs(nom + prénom) sous forme de tableau associatifs
-         $lesutilisateurs = $pdo->getLesInfosUtilisateurs();
-         include("vues/v_modifierUtilisateur.php");
-         break;
-      }
-
-   case 'editer': {
-         $id = $_POST['id'];
-         $login = $_POST['login'];
-         $nom = $_POST['nom'];
-         $prenom = $_POST['prenom'];
-         $adresse = $_POST['adresse'];
-         $mdp = $_POST['mdp'];
-         $cp = $_POST['cp'];
-         $dateEmbauche = $_POST['dateEmbauche'];
-         $ville = $_POST['ville'];
-         $typeConnexion = $_POST['typeConnexion'];
-
-         //Verification de la demande modifier
-         majUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $dateEmbauche, $typeConnexion);
-         $message = "Mise à jour effectuée !! ";
-         include_once("vues/v_information.php");
-         header("location:employe.php");
+        
          break;
       }
 
    default : {
-         include("vues/v_listeUtilisateurs.php");
+          include("vues/v_sommaireAdministrateur.php");
          break;
       }
 }

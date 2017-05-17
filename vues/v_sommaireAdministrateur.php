@@ -19,9 +19,6 @@
             <a href="index.php?uc=utilisateur&action=creationUtilisateur" title="Creation d'un Utilisateur">Creation Utilisateurs</a>
         </li>
         <li class="smenu">
-            <a href="index.php?uc=utilisateur&action=modifierUtilisateur" title="Modification d'un Utilisateur">Modification Utilisateurs</a>
-        </li>
-        <li class="smenu">
             <a href="index.php?uc=utilisateur&action=supprimerUtilisateur" title="Suppression d'un Utilisateur">Suppression Utilisateurs</a>
         </li>
         <li class="smenu">

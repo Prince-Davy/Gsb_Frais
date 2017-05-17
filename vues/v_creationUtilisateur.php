@@ -7,7 +7,7 @@
          <fieldset>
             <p>
                <label for="id">Id :</label>
-               <input id="id" type="text" name="id"  placeholder="Da02" size="30" maxlength="45">
+               <input id="id" type="text" name="id"  placeholder="da02" size="30" maxlength="45">
             </p>
             
             <p>
@@ -46,15 +46,15 @@
             </p>
             
             <p>
-               <label for="dateEmbauche">DateEmbauche :</label>
-               <input id="dateEmbauche"  type="text"  name="dateEmbauche" placeholder="10/12/2010" size="10" maxlength="45">
+               <label for="dateEmbauche">Date (jj/mm/aaaa) :</label>
+               <input id="dateEmbauche"  type="text"  name="dateEmbauche" placeholder="02/05/2010" size="30" maxlength="45">
             </p>
 
-            <label for="typeConnexion">Statut :</label>
-            <select name="typeConnexion" size="1">
-               <option value="visiteur" selected="selected">Visiteur</option>
-               <option value="comptable">Comptable</option>
-               <option value="administrateur">Administrateur</option>
+            <label for="typeconnexion">Statut :</label>
+            <select name="typeconnexion" size="1">
+               <option value="1" selected="selected">Visiteur</option>
+               <option value="2">Comptable</option>
+               <option value="3">Administrateur</option>
             </select>
             <br>
             <br>

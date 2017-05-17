@@ -20,14 +20,14 @@ function estConnecte() {
  * @param $id 
  * @param $nom
  * @param $prenom
- * @param $typeConnexion
+ * @param $typeconnexion
  * @param compte
  */
-function connecter($id, $nom, $prenom, $typeConnexion, $compte) {
+function connecter($id, $nom, $prenom, $typeconnexion, $compte) {
    $_SESSION['idUtilisateur'] = $id;
    $_SESSION['nom'] = $nom;
    $_SESSION['prenom'] = $prenom;
-   $_SESSION['typeConnexion'] = $typeConnexion;
+   $_SESSION['typeconnexion'] = $typeconnexion;
    $_SESSION['compte'] = $compte;
 }
 
@@ -36,7 +36,7 @@ function connecter($id, $nom, $prenom, $typeConnexion, $compte) {
  * @param $id 
  * @param $nom
  * @param $prenom
- * @param $typeConnexion
+ * @param $typeconnexion
  * @param compte
  * @param $mdp 
  * @param $adresse
@@ -338,7 +338,7 @@ function lireDonneePost($nomDonnee, $valDefaut = "") {
  * @param $cp
  * @param $ville
  */
-function valideInfosUtilisateur($id, $login, $nom, $prenom,$mdp, $adresse, $ville, $typeConnexion) {
+function valideInfosUtilisateur($id, $login, $nom, $prenom,$mdp, $adresse, $ville, $typeconnexion) {
 
    if ($id == "") {
       ajouterErreur("Le champ id ne peut pas être vide");
@@ -367,8 +367,8 @@ function valideInfosUtilisateur($id, $login, $nom, $prenom,$mdp, $adresse, $vill
       ajouterErreur("Le champ ville ne peut pas être vide");
    }
 
-   if ($typeConnexion == "") {
-      ajouterErreur("Le champ typeConnexion ne peut pas être vide");
+   if ($typeconnexion == "") {
+      ajouterErreur("Le champ typeconnexion ne peut pas être vide");
    }
 }
 

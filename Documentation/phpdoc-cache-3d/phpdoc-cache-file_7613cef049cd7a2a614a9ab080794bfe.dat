@@ -30,18 +30,18 @@ switch ($action) {
          $adresse = $_POST['adresse'];
          $mdp = $_POST['mdp'];
          $ville = $_POST['ville'];
-         $typeConnexion = $_POST['typeConnexion'];
+         $typeconnexion = $_POST['typeconnexion'];
          $connexion;
          $nbId = $pdo->getIdExist($id);
-         valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $ville, $typeConnexion);
+         valideInfosUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $ville, $typeconnexion);
          $nbErreurs = nbErreurs();
 
          if ($nbErreurs == 0 & $nbId[0] == 0) {
 
             //Modificationdu type de compte 
-            if ($typeConnexion == "visiteur") {
+            if ($typeconnexion == "visiteur") {
                $connexion = 1;
-            } elseif ($typeConnexion == "comptable") {
+            } elseif ($typeconnexion == "comptable") {
                $connexion = 2;
             } else {
                $connexion = 3;
@@ -57,13 +57,13 @@ switch ($action) {
 
             if ($nbLigne != 0) {
                echo "<br>";
-               $message = "L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeConnexion . " est crée)";
+               $message = "L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeconnexion . " est crée)";
             } else {
-               $message = ajouterErreur("!!Echec!! L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeConnexion . " n'a pu être crée");
+               $message = ajouterErreur("!!Echec!! L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeconnexion . " n'a pu être crée");
                include("vues/v_erreurs.php");
             }
          } else {
-            $message = ajouterErreur("!!Echec!! L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeConnexion . " n'a pu être crée");
+            $message = ajouterErreur("!!Echec!! L'utilisateur " . $nom . " " . $prenom . " du compte " . $typeconnexion . " n'a pu être crée");
             include("vues/v_erreurs.php");
          }
 

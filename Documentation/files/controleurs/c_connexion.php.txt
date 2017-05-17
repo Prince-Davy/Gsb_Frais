@@ -26,14 +26,14 @@ switch ($action) {
                 $nom = $utilisateur['nom'];
                 $prenom = $utilisateur['prenom'];
                 $compte = $utilisateur['compte'];
-                $typeConnexion = $utilisateur['typeConnexion'];
+                $typeconnexion = $utilisateur['typeconnexion'];
 
-                connecter($id, $nom, $prenom, $typeConnexion, $compte);
+                connecter($id, $nom, $prenom, $typeconnexion, $compte);
 
                 //Affichage du sommaire en fonction du compte Utilisateur / Comptable / Administrateur               
-                if ($typeConnexion == 2) {
+                if ($typeconnexion == 2) {
                     include("vues/v_sommaireComptable.php");
-                } else if ($typeConnexion == 3){
+                } else if ($typeconnexion == 3){
                     include("vues/v_sommaireAdministrateur.php");
                 }else
                    include("vues/v_sommaireUtilisateur.php");

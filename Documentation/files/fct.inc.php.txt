@@ -20,14 +20,14 @@ function estConnecte() {
  * @param $id 
  * @param $nom
  * @param $prenom
- * @param $typeConnexion
+ * @param $typeconnexion
  * @param compte
  */
-function connecter($id, $nom, $prenom, $typeConnexion, $compte) {
+function connecter($id, $nom, $prenom, $typeconnexion, $compte) {
     $_SESSION['idUtilisateur'] = $id;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
-    $_SESSION['typeConnexion'] = $typeConnexion;
+    $_SESSION['typeconnexion'] = $typeconnexion;
     $_SESSION['compte'] = $compte;
 }
 

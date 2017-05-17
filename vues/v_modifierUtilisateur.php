@@ -1,50 +1,50 @@
-<div id="page">
-   <div id="contenu">
-      <div class="corpsForm">
-         <fieldset>
-               <table class="listeLegere">
-                  <tr>
-                     <th class="login">Login</th>  
-                     <th class="nom">Nom</th>  
-                     <th class="prenom">Prenom</th> 
-                     <th class="compte">Compte</th>
-                     <th class="button">Bouton</th> 
-                  </tr>
+<div id="contenu">
+   <form method="POST" action="index.php?uc=utilisateur&action=editer">
+      <table class="listeLegere">
+         <caption>Liste des Utilisateurs Enregistrés Dans la Base de données
+         </caption>
+         <tr>
+            <th class="id">ID</th>
+            <th class="login">Login</th>  
+            <th class="nom">Nom</th>  
+            <th class="prenom">prenom</th> 
+            <th class="adresse">adresse</th>
+            <th class="cp">cp</th>  
+            <th class="dateEmbauche">dateEmbauche</th>  
+            <th class="compte">compte</th> 
+         </tr>
 
-                  <?php
-                  foreach ($lesutilisateurs as $unutilisateur) {
-                     $id = $unutilisateur['id'];
-                     $login = $unutilisateur['login'];
-                     $nom = $unutilisateur['nom'];
-                     $prenom = $unutilisateur['prenom'];
-                     $compte = $unutilisateur['compte'];
-                     ?>
+         <?php
+         foreach ($lesutilisateurs as $unutilisateur) {
+            $id = $unutilisateur['id'];
+            $login = $unutilisateur['login'];
+            $nom = $unutilisateur['nom'];
+            $prenom = $unutilisateur['prenom'];
+            $adresse = $unutilisateur['adresse'];
+            $cp = $unutilisateur['cp'];
+            $dateEmbauche = $unutilisateur['dateEmbauche'];
+            $compte = $unutilisateur['compte'];
+            ?>
 
-                     <tr>
-                        <td> <?php echo '<input type="text" value="' . $login . '"/>'; ?></td>
-                        <td> <?php echo '<input type="text" value="' . $nom . '"/>'; ?></td>
-                        <td> <?php echo '<input type="text" value="' . $prenom . '"/>'; ?></td>
-                        <td> <?php echo '<select>
-                          <option value="' . $compte . '" selected="selected">Visiteur</option>
-                          <option value="' . $compte . '">Comptable</option>
-                          <option value="' . $compte . '">Administrateur</option>
-                          </select>'; ?>
-                        </td>
-                        <td>
+            <tr>
+               <td> <?php echo $id ?></td>
+               <td> <?php echo $login ?></td>
+               <td> <?php echo $nom ?></td>
+               <td> <?php echo $prenom ?></td>
+               <td> <?php echo $adresse ?></td>
+               <td> <?php echo $cp ?></td>
+               <td> <?php echo $dateEmbauche ?></td>
+               <td> <?php echo $compte . '<br>' ?></td>
+               <td>
+                  <input type="submit" name="modifier" value="modifier"
+                         onclick="return confirm('Voulez-vous modifier cet Utilisateur?')">  
+               </td>
+            </tr>
+            <?php
+         }
+         ?>
 
-                           <input type="submit" name="modifier" value="modifier"
-                                  onclick="return confirm('Voulez-vous modifier cet Utilisateur?')">  
-                           
-                           <a onclick="return confirm('Vouslez vous modifier cet Utilisateur ?')"
-                              href="editerUtilisateur.php?id=<?php echo $id ?>">Modifier</a>
 
-                        </td>
-                     </tr>
-                     <?php
-                  }
-                  ?>
-               </table>
-         </fieldset>
-      </div>
-   </div>
+      </table>
+   </form>
 </div>
